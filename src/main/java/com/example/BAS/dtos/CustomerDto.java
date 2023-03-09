@@ -1,29 +1,24 @@
-package com.example.BAS.models;
+package com.example.BAS.dtos;
 
-import jakarta.persistence.*;
-
-@Entity
-public class Customer {
-    @Id
-    @GeneratedValue
-    Long id;
+public class CustomerDto {
+    private Long id;
 
     private String name;
-    @Column(unique = true)
     private String customerNumber;
     private String brand;
     private String email;
 
-    public Customer() {
+    public CustomerDto() {
+
     }
 
-    public Customer(String name, String customerNumber, String brand) {
+    public CustomerDto(String name, String customerNumber, String brand) {
         this.name = name;
         this.customerNumber = customerNumber;
         this.brand = brand;
     }
 
-    public Customer(String name, String customerNumber, String brand, String email) {
+    public CustomerDto(String name, String customerNumber, String brand, String email) {
         this.name = name;
         this.customerNumber = customerNumber;
         this.brand = brand;

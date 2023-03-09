@@ -1,41 +1,32 @@
-package com.example.BAS.models;
+package com.example.BAS.dtos;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
-@Entity
-public class Customer {
-    @Id
-    @GeneratedValue
-    Long id;
-
+public class CustomerInputDto {
+    @NotBlank(message = "Naam is verplicht")
     private String name;
-    @Column(unique = true)
+    @NotBlank(message = "Klantnummer is verplicht")
     private String customerNumber;
+    @NotBlank(message = "Merk is verplicht")
     private String brand;
+    @Email(message = "Moet een e-mailadres zijn")
     private String email;
 
-    public Customer() {
+    public CustomerInputDto() {
+
     }
 
-    public Customer(String name, String customerNumber, String brand) {
+    public CustomerInputDto(String name, String customerNumber, String brand) {
         this.name = name;
         this.customerNumber = customerNumber;
         this.brand = brand;
     }
 
-    public Customer(String name, String customerNumber, String brand, String email) {
+    public CustomerInputDto(String name, String customerNumber, String brand, String email) {
         this.name = name;
         this.customerNumber = customerNumber;
         this.brand = brand;
         this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
