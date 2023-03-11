@@ -1,17 +1,9 @@
-package com.example.BAS.models;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+package com.example.BAS.dtos;
 
 import java.time.LocalDate;
 
-@Entity
-public class Policy {
-    @Id
-    @GeneratedValue
-    Long id;
-
+public class PolicyDto {
+    private Long id;
     private String policyNumber;
     private Integer amount;
     private LocalDate receiveDateAmount;
@@ -20,6 +12,10 @@ public class Policy {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPolicyNumber() {

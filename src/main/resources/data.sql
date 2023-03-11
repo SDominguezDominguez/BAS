@@ -17,3 +17,8 @@ INSERT INTO file(id, status, status_comment, comment, file_type, contract_amount
 VALUES (1, 'Wachten op bedrag en PSK', 'Nabestaandendossier', 'Lhk nee', 'LUR', 5500),
        (2, 'Bijzonderheid', 'Niet compliant', 'Dep ja', 'LOR', 0),
        (3, 'Wachten op bedrag', '', 'Lhk ja', 'GHUR', 4000);
+
+INSERT INTO policy(id, policy_number, amount, receive_date_amount, receive_date_psk, reminder_date_psk)
+VALUES (1, 'L123', 2500, '2023-02-01', '2023-01-01', null),
+       (2, 'L1234', null, null, null, null),
+       (3, 'K504', 6593.21, '2023-03-10', null, '2023-03-24');

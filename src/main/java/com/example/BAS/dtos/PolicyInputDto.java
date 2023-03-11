@@ -1,26 +1,19 @@
-package com.example.BAS.models;
+package com.example.BAS.dtos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 
-@Entity
-public class Policy {
-    @Id
-    @GeneratedValue
-    Long id;
-
+public class PolicyInputDto {
     private String policyNumber;
     private Integer amount;
+    @Past
     private LocalDate receiveDateAmount;
+    @Past
     private LocalDate receiveDatePsk;
+    @Future
     private LocalDate reminderDatePsk;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getPolicyNumber() {
         return policyNumber;
