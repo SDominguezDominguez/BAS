@@ -1,37 +1,19 @@
-package com.example.BAS.models;
+package com.example.BAS.dtos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 
-@Entity
-public class Policy {
-    @Id
-    @GeneratedValue(generator = "policy_sequence")
-    @GenericGenerator(
-            name = "policy_sequence",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "policy_sequence", value = "customer_id"),
-                    @Parameter(name = "initial_value", value = "4"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
-    Long id;
-
+public class PolicyInputDto {
     private String policyNumber;
     private Integer amount;
+    @Past
     private LocalDate receiveDateAmount;
+    @Past
     private LocalDate receiveDatePsk;
+    @Future
     private LocalDate reminderDatePsk;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getPolicyNumber() {
         return policyNumber;

@@ -26,15 +26,15 @@ public class CustomerService {
     public CustomerDto getCustomerByCustomerNumber(String customerNumber) {
         Customer customer = customerRepository.findCustomerByCustomerNumber(customerNumber);
 
-        return transferToDto(customer);
+        return transferCustomerToDto(customer);
     }
 
     public CustomerDto createCustomer(CustomerInputDto dto) {
-        Customer customer = transferToCustomer(dto);
+        Customer customer = transferCustomerInputDtoToCustomer(dto);
 
         customerRepository.save(customer);
 
-        return transferToDto(customer);
+        return transferCustomerToDto(customer);
     }
 
     public void deleteCustomer(String cn) {
@@ -73,14 +73,14 @@ public class CustomerService {
         List<CustomerDto> customerDtoList = new ArrayList<>();
 
         for (Customer customer : customers) {
-            CustomerDto dto = transferToDto(customer);
+            CustomerDto dto = transferCustomerToDto(customer);
 
             customerDtoList.add(dto);
         }
         return customerDtoList;
     }
 
-    public CustomerDto transferToDto(Customer customer) {
+    public CustomerDto transferCustomerToDto(Customer customer) {
         CustomerDto dto = new CustomerDto();
 
         dto.setName(customer.getName());
@@ -92,7 +92,7 @@ public class CustomerService {
         return dto;
     }
 
-    public Customer transferToCustomer(CustomerInputDto dto) {
+    public Customer transferCustomerInputDtoToCustomer(CustomerInputDto dto) {
         Customer customer = new Customer();
 
         customer.setName(dto.getName());
