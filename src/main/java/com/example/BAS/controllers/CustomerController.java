@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -22,18 +21,16 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<CustomerDto>> getAllCustomers(@RequestParam(value = "customerNumber", required = false) Optional<String> customerNumber) {
-        List<CustomerDto> dtos;
-
-        if (customerNumber.isEmpty()) {
-            dtos = customerService.getAllCustomers();
-
-        } else {
-            dtos = customerService.getCustomersByCustomerNumber(customerNumber.get());
-        }
-
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
+        List<CustomerDto> dtos = customerService.getAllCustomers();
         return ResponseEntity.ok().body(dtos);
     }
+
+    @GetMapping("/{cn}")
+    public CustomerDto getCustomerByCustomerNumber(@PathVariable String cn) {
+        return customerService.getCustomerByCustomerNumber(cn);
+    }
+
 
     @PostMapping("")
     public ResponseEntity<Object> addCustomer(@Valid @RequestBody CustomerInputDto inputDto) {

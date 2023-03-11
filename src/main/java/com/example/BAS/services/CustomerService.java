@@ -23,9 +23,10 @@ public class CustomerService {
         return transferCustomerListToDtoList(customerList);
     }
 
-    public List<CustomerDto> getCustomersByCustomerNumber(String customerNumber) {
-        List<Customer> customerList = customerRepository.findCustomersByCustomerNumber(customerNumber);
-        return transferCustomerListToDtoList(customerList);
+    public CustomerDto getCustomerByCustomerNumber(String customerNumber) {
+        Customer customer = customerRepository.findCustomerByCustomerNumber(customerNumber);
+
+        return transferToDto(customer);
     }
 
     public CustomerDto createCustomer(CustomerInputDto dto) {
