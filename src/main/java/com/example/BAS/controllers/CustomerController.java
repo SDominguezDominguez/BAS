@@ -23,7 +23,7 @@ public class CustomerController {
     @GetMapping("")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> dtos = customerService.getAllCustomers();
-        return ResponseEntity.ok().body(dtos);
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{cn}")
@@ -33,7 +33,7 @@ public class CustomerController {
 
 
     @PostMapping("")
-    public ResponseEntity<Object> addCustomer(@Valid @RequestBody CustomerInputDto inputDto) {
+    public ResponseEntity<Object> createCustomer(@Valid @RequestBody CustomerInputDto inputDto) {
         Long createdId = customerService.createCustomer(inputDto).getId();
 
         URI uri = URI.create(
