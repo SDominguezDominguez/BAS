@@ -1,15 +1,7 @@
-package com.example.BAS.models;
+package com.example.BAS.dtos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
-@Entity
-public class File {
-    @Id
-    @GeneratedValue
-    Long id;
-
+public class FileDto {
+    private Long id;
     private String status;
     private String statusComment;
     private String comment;
@@ -18,6 +10,10 @@ public class File {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStatus() {

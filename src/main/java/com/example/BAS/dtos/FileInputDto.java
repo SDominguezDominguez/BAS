@@ -1,24 +1,15 @@
-package com.example.BAS.models;
+package com.example.BAS.dtos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
 
-@Entity
-public class File {
-    @Id
-    @GeneratedValue
-    Long id;
-
+public class FileInputDto {
+    @NotEmpty
     private String status;
     private String statusComment;
     private String comment;
+    @NotEmpty
     private String fileType;
     private Integer contractAmount;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getStatus() {
         return status;
