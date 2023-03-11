@@ -1,12 +1,23 @@
 package com.example.BAS.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue
-    Long id;
+    @GeneratedValue(generator = "customer_sequence")
+    @GenericGenerator(
+            name = "customer_sequence",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "customer_sequence", value = "customer_id"),
+                    @Parameter(name = "initial_value", value = "4"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
+    private Long id;
 
     private String name;
     @Column(unique = true)
