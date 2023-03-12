@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.List;
+
 @Entity
 public class Customer {
     @Id
@@ -18,12 +20,17 @@ public class Customer {
             }
     )
     private Long id;
-
     private String name;
     @Column(unique = true)
     private String customerNumber;
     private String brand;
     private String email;
+
+    @ManyToOne
+    private Advisor advisor;
+
+    @OneToMany(mappedBy = "customer")
+    private List<File> files;
 
     public Customer() {
     }
@@ -79,5 +86,21 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Advisor getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 }
