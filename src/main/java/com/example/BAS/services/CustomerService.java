@@ -74,7 +74,6 @@ public class CustomerService {
 
         for (Customer customer : customers) {
             CustomerDto dto = transferCustomerToDto(customer);
-
             customerDtoList.add(dto);
         }
         return customerDtoList;

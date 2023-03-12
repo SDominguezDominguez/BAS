@@ -1,10 +1,11 @@
 package com.example.BAS.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @Entity
 public class File {
@@ -19,17 +20,18 @@ public class File {
                     @Parameter(name = "increment_size", value = "1")
             }
     )
-    Long id;
-
+    private Long id;
     private String status;
     private String statusComment;
     private String comment;
     private String fileType;
     private Integer contractAmount;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    private Customer customer;
+
+    @OneToMany(mappedBy = "file")
+    private List<Policy> policies;
 
     public String getStatus() {
         return status;
@@ -69,5 +71,29 @@ public class File {
 
     public void setContractAmount(Integer contractAmount) {
         this.contractAmount = contractAmount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Policy> getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(List<Policy> policies) {
+        this.policies = policies;
     }
 }
