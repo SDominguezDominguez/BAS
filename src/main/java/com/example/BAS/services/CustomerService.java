@@ -2,6 +2,8 @@ package com.example.BAS.services;
 
 import com.example.BAS.dtos.CustomerDto;
 import com.example.BAS.dtos.CustomerInputDto;
+import com.example.BAS.exceptions.RecordAlreadyExistsException;
+import com.example.BAS.exceptions.RecordNotFoundException;
 import com.example.BAS.models.Customer;
 import com.example.BAS.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -13,9 +15,11 @@ import java.util.Optional;
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final AdvisorService advisorService;
 
-    public CustomerService(CustomerRepository repo) {
+    public CustomerService(CustomerRepository repo, AdvisorService advisorService) {
         this.customerRepository = repo;
+        this.advisorService = advisorService;
     }
 
     public List<CustomerDto> getAllCustomers() {
@@ -24,29 +28,56 @@ public class CustomerService {
     }
 
     public CustomerDto getCustomerByCustomerNumber(String customerNumber) {
-        Customer customer = customerRepository.findCustomerByCustomerNumber(customerNumber);
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByCustomerNumber(customerNumber);
 
-        return transferCustomerToDto(customer);
+        if (optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+
+            return transferCustomerToDto(customer);
+
+        } else {
+            throw new RecordNotFoundException("Geen klant gevonden");
+        }
+    }
+
+    public List<CustomerDto> getCustomersByNameContaining(String name) {
+        Optional<List<Customer>> optionalCustomers = customerRepository.findCustomerByNameContaining(name);
+
+        if (optionalCustomers.isPresent()) {
+            List<Customer> customers = optionalCustomers.get();
+
+            return transferCustomerListToDtoList(customers);
+
+        } else {
+            throw new RecordNotFoundException("Geen klanten gevonden");
+        }
     }
 
     public CustomerDto createCustomer(CustomerInputDto dto) {
-        Customer customer = transferCustomerInputDtoToCustomer(dto);
 
-        customerRepository.save(customer);
+        if (customerRepository.findCustomerByCustomerNumber(dto.getCustomerNumber()).isPresent()) {
+            throw new RecordAlreadyExistsException("Klantnummer staat al in de database");
+        } else {
+            Customer customer = transferCustomerInputDtoToCustomer(dto);
 
-        return transferCustomerToDto(customer);
+            customerRepository.save(customer);
+
+            return transferCustomerToDto(customer);
+        }
     }
 
     public void deleteCustomer(String cn) {
-        Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepository.findCustomerByCustomerNumber(cn));
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByCustomerNumber(cn);
         if (optionalCustomer.isPresent()) {
             Long customer = optionalCustomer.get().getId();
             customerRepository.deleteById(customer);
+        } else {
+            throw new RecordNotFoundException("Geen klant gevonden met dit klantnummer");
         }
     }
 
     public void patchCustomer(String cn, CustomerInputDto newCustomer) {
-        Optional<Customer> optionalCustomer = Optional.ofNullable(customerRepository.findCustomerByCustomerNumber(cn));
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByCustomerNumber(cn);
 
         if (optionalCustomer.isPresent()) {
 
@@ -64,8 +95,14 @@ public class CustomerService {
             if (newCustomer.getEmail() != null) {
                 customer.setEmail(newCustomer.getEmail());
             }
+            if (newCustomer.getAdvisor() != null) {
+                customer.setAdvisor(newCustomer.getAdvisor());
+            }
 
             customerRepository.save(customer);
+
+        } else {
+            throw new RecordNotFoundException("Geen klant gevonden");
         }
     }
 
@@ -74,6 +111,9 @@ public class CustomerService {
 
         for (Customer customer : customers) {
             CustomerDto dto = transferCustomerToDto(customer);
+            if (customer.getAdvisor() != null) {
+                dto.setAdvisorDto(advisorService.transferAdvisorToDto(customer.getAdvisor()));
+            }
             customerDtoList.add(dto);
         }
         return customerDtoList;
@@ -87,6 +127,9 @@ public class CustomerService {
         dto.setBrand(customer.getBrand());
         dto.setEmail(customer.getEmail());
         dto.setId(customer.getId());
+        if (customer.getAdvisor() != null) {
+            dto.setAdvisorDto(advisorService.transferAdvisorToDto(customer.getAdvisor()));
+        }
 
         return dto;
     }
@@ -98,6 +141,7 @@ public class CustomerService {
         customer.setCustomerNumber(dto.getCustomerNumber());
         customer.setBrand(dto.getBrand());
         customer.setEmail(dto.getEmail());
+        customer.setAdvisor(dto.getAdvisor());
 
         return customer;
     }
