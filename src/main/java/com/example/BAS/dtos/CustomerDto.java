@@ -2,11 +2,11 @@ package com.example.BAS.dtos;
 
 public class CustomerDto {
     private Long id;
-
     private String name;
     private String customerNumber;
     private String brand;
     private String email;
+    private AdvisorDto advisorDto;
 
     public CustomerDto() {
 
@@ -63,5 +63,13 @@ public class CustomerDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public AdvisorDto getAdvisorDto() {
+        return advisorDto;
+    }
+
+    public void setAdvisorDto(AdvisorDto advisorDto) {
+        this.advisorDto = advisorDto;
     }
 }
