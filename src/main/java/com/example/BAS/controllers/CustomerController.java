@@ -23,6 +23,7 @@ public class CustomerController {
     @GetMapping("")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         List<CustomerDto> dtos = customerService.getAllCustomers();
+
         return ResponseEntity.ok(dtos);
     }
 
@@ -31,6 +32,10 @@ public class CustomerController {
         return customerService.getCustomerByCustomerNumber(cn);
     }
 
+    @GetMapping("/contains/{name}")
+    public List<CustomerDto> getCustomersContainingName(@PathVariable String name) {
+        return customerService.getCustomersByNameContaining(name);
+    }
 
     @PostMapping("")
     public ResponseEntity<Object> createCustomer(@Valid @RequestBody CustomerInputDto inputDto) {
@@ -52,8 +57,8 @@ public class CustomerController {
         return ResponseEntity.ok("Klantgegevens gewijzigd");
     }
 
-    @DeleteMapping("")
-    public void deleteCustomer(@RequestParam(value = "customerNumber") String customerNumber) {
-        customerService.deleteCustomer(customerNumber);
+    @DeleteMapping("/{cn}")
+    public void deleteCustomer(@PathVariable String cn) {
+        customerService.deleteCustomer(cn);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.BAS.dtos;
 
+import com.example.BAS.models.Advisor;
 import jakarta.validation.constraints.*;
 
 public class CustomerInputDto {
@@ -11,23 +12,7 @@ public class CustomerInputDto {
     private String brand;
     @Email(message = "Moet een e-mailadres zijn")
     private String email;
-
-    public CustomerInputDto() {
-
-    }
-
-    public CustomerInputDto(String name, String customerNumber, String brand) {
-        this.name = name;
-        this.customerNumber = customerNumber;
-        this.brand = brand;
-    }
-
-    public CustomerInputDto(String name, String customerNumber, String brand, String email) {
-        this.name = name;
-        this.customerNumber = customerNumber;
-        this.brand = brand;
-        this.email = email;
-    }
+    private Advisor advisor;
 
     public String getName() {
         return name;
@@ -59,5 +44,13 @@ public class CustomerInputDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Advisor getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
     }
 }
