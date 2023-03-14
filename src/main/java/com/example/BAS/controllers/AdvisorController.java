@@ -2,6 +2,7 @@ package com.example.BAS.controllers;
 
 import com.example.BAS.dtos.AdvisorDto;
 import com.example.BAS.dtos.AdvisorInputDto;
+import com.example.BAS.dtos.CustomerDto;
 import com.example.BAS.services.AdvisorService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,22 @@ public class AdvisorController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/contains")
+    public ResponseEntity<List<AdvisorDto>> getAdvisorByNameContaining(@RequestParam(value = "name") String name) {
+            List<AdvisorDto> dtos = advisorService.getAdvisorsByNameContaining(name);
+            return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<List<CustomerDto>> getCustomersByAdvisorId(@PathVariable Long id) {
+        return ResponseEntity.ok(advisorService.getAllCustomersByAdvisor(id));
+    }
+
+    @GetMapping("/customer/{cn}")
+    public ResponseEntity<AdvisorDto> getAdvisorByCustomerNumber(@PathVariable String cn) {
+        return ResponseEntity.ok(advisorService.getAdvisorByCustomerNumber(cn));
+    }
+
     @PostMapping
     public ResponseEntity<Object> createAdvisor(@Valid @RequestBody AdvisorInputDto dto) {
         Long createdID = advisorService.createAdvisor(dto).getId();
@@ -42,14 +59,14 @@ public class AdvisorController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> changeAdvisor(@RequestParam(value = "id") Long id, @RequestBody AdvisorInputDto dto) {
+    public ResponseEntity<Object> changeAdvisor(@PathVariable Long id, @RequestBody AdvisorInputDto dto) {
         advisorService.patchAdvisor(id, dto);
 
         return ResponseEntity.ok("Gegevens adviseur gewijzigd");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteAdvisor(@RequestParam(value = "id") Long id) {
+    public void deleteAdvisor(@PathVariable Long id) {
         advisorService.deleteAdvisor(id);
     }
 }
