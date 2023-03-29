@@ -57,4 +57,12 @@ public class CustomerController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{cn}")
+    public ResponseEntity<CustomerDto> getCustomerByCustomerNumber(@PathVariable String cn) {
+
+        return ResponseEntity.ok(customerService.getCustomerByCustomerNumber(cn));
+    }
+
+
 }

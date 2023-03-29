@@ -88,4 +88,20 @@ public class CustomerService {
             throw new CustomerNotFoundException("id " + id);
         }
     }
+
+    public CustomerDto getCustomerByCustomerNumber(String customerNumber) {
+
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByCustomerNumber(customerNumber);
+
+        if (optionalCustomer.isPresent()) {
+
+            Customer customer = optionalCustomer.get();
+
+            return CustomerHelper.transferCustomerToDto(customer);
+
+        } else {
+
+            throw new CustomerNotFoundException("klantnummer " + customerNumber);
+        }
+    }
 }
