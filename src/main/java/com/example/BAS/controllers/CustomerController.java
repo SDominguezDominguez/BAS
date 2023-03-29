@@ -22,9 +22,16 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
+    public ResponseEntity<List<CustomerDto>> getAllCustomers(@RequestParam(value = "name", required = false) String name) {
 
-        return ResponseEntity.ok(customerService.getAllCustomers());
+        if (name == null) {
+
+            return ResponseEntity.ok(customerService.getAllCustomers());
+
+        } else {
+
+            return ResponseEntity.ok(customerService.getCustomersByNameContaining(name));
+        }
     }
 
     @PostMapping("")

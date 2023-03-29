@@ -104,4 +104,20 @@ public class CustomerService {
             throw new CustomerNotFoundException("klantnummer " + customerNumber);
         }
     }
+
+    public List<CustomerDto> getCustomersByNameContaining(String name) {
+
+        Optional<List<Customer>> optionalCustomers = customerRepository.findCustomerByNameContainingIgnoreCase(name);
+
+        if (optionalCustomers.isPresent() && optionalCustomers.get().size() > 0) {
+
+            List<Customer> customers = optionalCustomers.get();
+
+            return CustomerHelper.transferCustomerListToDtoList(customers);
+
+        } else {
+
+            throw new CustomerNotFoundException("naam " + name);
+        }
+    }
 }
