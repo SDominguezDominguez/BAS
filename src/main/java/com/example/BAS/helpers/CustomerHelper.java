@@ -1,0 +1,50 @@
+package com.example.BAS.helpers;
+
+import com.example.BAS.dtos.CustomerDto;
+import com.example.BAS.dtos.CustomerInputDto;
+import com.example.BAS.models.Customer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CustomerHelper {
+
+    public static List<CustomerDto> transferCustomerListToDtoList(List<Customer> customers) {
+
+        List<CustomerDto> customerDtoList = new ArrayList<>();
+
+        for (Customer customer : customers) {
+
+            CustomerDto dto = transferCustomerToDto(customer);
+
+            customerDtoList.add(dto);
+        }
+
+        return customerDtoList;
+    }
+
+    public static CustomerDto transferCustomerToDto(Customer customer) {
+
+        CustomerDto dto = new CustomerDto();
+
+        dto.setName(customer.getName());
+        dto.setCustomerNumber(customer.getCustomerNumber());
+        dto.setLabel(customer.getLabel());
+        dto.setEmail(customer.getEmail());
+        dto.setId(customer.getId());
+
+        return dto;
+    }
+
+    public static Customer transferCustomerInputDtoToCustomer(CustomerInputDto dto) {
+
+        Customer customer = new Customer();
+
+        customer.setName(dto.getName());
+        customer.setCustomerNumber(dto.getCustomerNumber());
+        customer.setLabel(dto.getLabel());
+        customer.setEmail(dto.getEmail());
+
+        return customer;
+    }
+}

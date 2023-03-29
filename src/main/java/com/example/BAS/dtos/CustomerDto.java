@@ -1,22 +1,22 @@
-package dtos;
+package com.example.BAS.dtos;
 
 import com.example.BAS.enumerations.Label;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 
-public class CustomerInputDto {
+public class CustomerDto {
 
-    @NotEmpty(message = "Naam is verplicht")
+    private Long id;
     private String name;
-
-    @NotEmpty(message = "Klantnummer is verplicht")
     private String customerNumber;
-
-    @NotEmpty(message = "Merk is verplicht")
     private Label label;
-
-    @Email
     private String email;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
