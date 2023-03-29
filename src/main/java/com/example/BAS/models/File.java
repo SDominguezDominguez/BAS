@@ -2,9 +2,7 @@ package com.example.BAS.models;
 
 import com.example.BAS.enumerations.FileType;
 import com.example.BAS.enumerations.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,9 +21,13 @@ public class File {
             }
     )
     private Long id;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
     private String statusComment;
     private String comment;
+
+    @Enumerated(EnumType.STRING)
     private FileType fileType;
     private Integer contractAmount;
 
