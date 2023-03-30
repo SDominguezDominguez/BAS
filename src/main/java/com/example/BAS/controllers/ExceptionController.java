@@ -1,9 +1,6 @@
 package com.example.BAS.controllers;
 
-import com.example.BAS.exceptions.CustomerNotFoundException;
-import com.example.BAS.exceptions.FileNotFoundException;
-import com.example.BAS.exceptions.RecordAlreadyExistsException;
-import com.example.BAS.exceptions.RecordNotFoundException;
+import com.example.BAS.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,6 +29,12 @@ public class ExceptionController {
 
     @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> exception(RecordNotFoundException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = PolicyNotFoundException.class)
+    public ResponseEntity<Object> exception(PolicyNotFoundException exception) {
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
