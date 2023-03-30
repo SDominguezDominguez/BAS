@@ -11,6 +11,7 @@ public class FileDto {
     private String comment;
     private FileType fileType;
     private Integer contractAmount;
+    private CustomerDto customerDto;
 
     public Long getId() {
         return id;
@@ -58,5 +59,13 @@ public class FileDto {
 
     public void setContractAmount(Integer contractAmount) {
         this.contractAmount = contractAmount;
+    }
+
+    public CustomerDto getCustomerDto() {
+        return customerDto;
+    }
+
+    public void setCustomerDto(CustomerDto customerDto) {
+        this.customerDto = customerDto;
     }
 }

@@ -2,6 +2,8 @@ package com.example.BAS.dtos;
 
 import com.example.BAS.enumerations.Label;
 
+import java.util.List;
+
 public class CustomerDto {
 
     private Long id;
@@ -9,6 +11,7 @@ public class CustomerDto {
     private String customerNumber;
     private Label label;
     private String email;
+    private List<FileDto> fileDto;
 
     public Long getId() {
         return id;
@@ -48,5 +51,13 @@ public class CustomerDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<FileDto> getFileDto() {
+        return fileDto;
+    }
+
+    public void setFileDto(List<FileDto> fileDto) {
+        this.fileDto = fileDto;
     }
 }

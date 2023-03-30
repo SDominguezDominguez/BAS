@@ -31,6 +31,9 @@ public class File {
     private FileType fileType;
     private Integer contractAmount;
 
+    @ManyToOne
+    private Customer customer;
+
     public Long getId() {
         return id;
     }
@@ -77,5 +80,13 @@ public class File {
 
     public void setContractAmount(Integer contractAmount) {
         this.contractAmount = contractAmount;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

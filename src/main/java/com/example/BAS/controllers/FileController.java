@@ -2,6 +2,7 @@ package com.example.BAS.controllers;
 
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.dtos.FileInputDto;
+import com.example.BAS.enumerations.Label;
 import com.example.BAS.enumerations.Status;
 import com.example.BAS.services.FileService;
 import jakarta.validation.Valid;
@@ -64,5 +65,30 @@ public class FileController {
         fileService.deleteFile(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/customer/{customerId}")
+    public void assignFileToCustomer(@PathVariable Long id, @PathVariable Long customerId) {
+
+        fileService.assignFileToCustomer(id, customerId);
+    }
+
+    @GetMapping("/customer/{customerNumber}")
+    public ResponseEntity<List<FileDto>> getFilesByCustomerNumber(@PathVariable String customerNumber) {
+
+        return ResponseEntity.ok(fileService.getFilesByCustomerNumber(customerNumber));
+
+    }
+
+    @GetMapping("/customers")
+    public ResponseEntity<List<FileDto>> getFilesByCustomerNameContaining(@RequestParam(value = "name") String name) {
+
+        return ResponseEntity.ok(fileService.getFilesByCustomerName(name));
+    }
+
+    @GetMapping("label/{label}")
+    public ResponseEntity<List<FileDto>> getFilesByLabel(@PathVariable Label label) {
+
+        return ResponseEntity.ok(fileService.getFilesByLabel(label));
     }
 }
