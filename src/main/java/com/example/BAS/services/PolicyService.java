@@ -83,4 +83,20 @@ public class PolicyService {
             throw new PolicyNotFoundException("id " + id);
         }
     }
+
+    public PolicyDto getPolicyByPolicyNumber(String policyNumber) {
+
+        Optional<Policy> optionalPolicy = policyRepository.getPolicyByPolicyNumberIgnoreCase(policyNumber);
+
+        if (optionalPolicy.isPresent()) {
+
+            Policy policy = optionalPolicy.get();
+
+            return PolicyHelper.transferPolicyToDto(policy);
+
+        } else {
+
+            throw new PolicyNotFoundException("polisnummer " + policyNumber);
+        }
+    }
 }

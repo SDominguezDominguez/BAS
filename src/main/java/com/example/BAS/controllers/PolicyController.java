@@ -58,4 +58,10 @@ public class PolicyController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{policyNumber}")
+    public ResponseEntity<PolicyDto> getPoliciesByPolicyNumber(@PathVariable String policyNumber) {
+
+        return ResponseEntity.ok(policyService.getPolicyByPolicyNumber(policyNumber));
+    }
 }
