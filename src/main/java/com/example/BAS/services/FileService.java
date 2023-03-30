@@ -2,6 +2,7 @@ package com.example.BAS.services;
 
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.dtos.FileInputDto;
+import com.example.BAS.enumerations.Label;
 import com.example.BAS.enumerations.Status;
 import com.example.BAS.exceptions.CustomerNotFoundException;
 import com.example.BAS.exceptions.FileNotFoundException;
@@ -172,6 +173,31 @@ public class FileService {
         } else {
 
             throw new FileNotFoundException("klantnummer " + name);
+        }
+    }
+
+    public List<FileDto> getFilesByLabel(Label label) {
+
+        Optional<List<Customer>> optionalCustomer = customerRepository.findCustomerByLabel(label);
+
+        if (optionalCustomer.isPresent() && optionalCustomer.get().size() > 0) {
+
+            List<Customer> customers = optionalCustomer.get();
+            List<File> files = new ArrayList<>();
+
+            for (Customer customer : customers) {
+
+                if (customer.getFiles().size() > 0) {
+
+                    files = customer.getFiles();
+                }
+            }
+
+            return FileHelper.transferFileListToDtoList(files);
+
+        } else {
+
+            throw new FileNotFoundException("klantnummer " + label);
         }
     }
 }
