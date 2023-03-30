@@ -2,6 +2,7 @@ package com.example.BAS.controllers;
 
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.dtos.FileInputDto;
+import com.example.BAS.enumerations.Status;
 import com.example.BAS.services.FileService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,16 @@ public class FileController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<FileDto>> getAllFiles() {
+    public ResponseEntity<List<FileDto>> getAllFiles(@RequestParam(value = "status", required = false) Status status) {
 
-        return ResponseEntity.ok(fileService.getAllFiles());
+        if (status == null) {
+
+            return ResponseEntity.ok(fileService.getAllFiles());
+
+        } else {
+
+            return ResponseEntity.ok(fileService.getFilesWithStatus(status));
+        }
     }
 
     @PostMapping("")

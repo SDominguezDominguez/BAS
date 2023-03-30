@@ -2,6 +2,7 @@ package com.example.BAS.services;
 
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.dtos.FileInputDto;
+import com.example.BAS.enumerations.Status;
 import com.example.BAS.exceptions.FileNotFoundException;
 import com.example.BAS.helpers.FileHelper;
 import com.example.BAS.models.File;
@@ -81,6 +82,20 @@ public class FileService {
         } else {
 
             throw new FileNotFoundException("id " + id);
+        }
+    }
+
+    public List<FileDto> getFilesWithStatus(Status status) {
+
+        Optional<List<File>> optionalFiles = fileRepository.findFilesByStatus(status);
+
+        if (optionalFiles.isPresent() && optionalFiles.get().size() > 0) {
+
+            return FileHelper.transferFileListToDtoList(optionalFiles.get());
+
+        } else {
+
+            throw new FileNotFoundException("status " + status);
         }
     }
 }
