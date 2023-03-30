@@ -2,7 +2,9 @@ package com.example.BAS.helpers;
 
 import com.example.BAS.dtos.CustomerDto;
 import com.example.BAS.dtos.CustomerInputDto;
+import com.example.BAS.dtos.FileDto;
 import com.example.BAS.models.Customer;
+import com.example.BAS.models.File;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,19 @@ public class CustomerHelper {
         for (Customer customer : customers) {
 
             CustomerDto dto = transferCustomerToDto(customer);
+
+            if (customer.getFiles().size() > 0) {
+
+                List<File> files = customer.getFiles();
+                List<FileDto> dtos = new ArrayList<>();
+
+                for (File file : files) {
+
+                    dtos.add(FileHelper.transferFileToDto(file));
+                }
+
+                dto.setFileDto(dtos);
+            }
 
             customerDtoList.add(dto);
         }

@@ -3,9 +3,13 @@ package com.example.BAS.services;
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.dtos.FileInputDto;
 import com.example.BAS.enumerations.Status;
+import com.example.BAS.exceptions.CustomerNotFoundException;
 import com.example.BAS.exceptions.FileNotFoundException;
+import com.example.BAS.exceptions.RecordNotFoundException;
 import com.example.BAS.helpers.FileHelper;
+import com.example.BAS.models.Customer;
 import com.example.BAS.models.File;
+import com.example.BAS.repositories.CustomerRepository;
 import com.example.BAS.repositories.FileRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +20,11 @@ import java.util.Optional;
 public class FileService {
 
     private final FileRepository fileRepository;
+    private final CustomerRepository customerRepository;
 
-    public FileService(FileRepository fileRepository) {
+    public FileService(FileRepository fileRepository, CustomerRepository customerRepository) {
         this.fileRepository = fileRepository;
+        this.customerRepository = customerRepository;
     }
 
     public List<FileDto> getAllFiles() {
@@ -96,6 +102,34 @@ public class FileService {
         } else {
 
             throw new FileNotFoundException("status " + status);
+        }
+    }
+
+    public void assignFileToCustomer(Long id, Long customerId) {
+
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+        Optional<File> optionalFile = fileRepository.findById(id);
+
+        if (optionalCustomer.isPresent() && optionalFile.isPresent()) {
+
+            Customer customer = optionalCustomer.get();
+            File file = optionalFile.get();
+
+            file.setCustomer(customer);
+
+            fileRepository.save(file);
+
+        } else if (optionalFile.isPresent()) {
+
+            throw new CustomerNotFoundException("id " + id);
+
+        } else if (optionalCustomer.isPresent()){
+
+            throw new FileNotFoundException("id " + customerId);
+
+        } else {
+
+            throw new RecordNotFoundException("Dossier met id " +  id + " en klant met id " + customerId + " niet gevonden");
         }
     }
 }

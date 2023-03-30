@@ -65,4 +65,10 @@ public class FileController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/customer/{customerId}")
+    public void assignFileToCustomer(@PathVariable Long id, @PathVariable Long customerId) {
+
+        fileService.assignFileToCustomer(id, customerId);
+    }
 }

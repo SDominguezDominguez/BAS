@@ -34,6 +34,10 @@ public class FileHelper {
         dto.setStatusComment(file.getStatusComment());
         dto.setContractAmount(file.getContractAmount());
 
+        if (file.getCustomer() != null) {
+            dto.setCustomerDto(CustomerHelper.transferCustomerToDto(file.getCustomer()));
+        }
+
         return dto;
     }
 
