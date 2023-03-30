@@ -78,4 +78,10 @@ public class FileController {
         return ResponseEntity.ok(fileService.getFilesByCustomerNumber(customerNumber));
 
     }
+
+    @GetMapping("/customers")
+    public ResponseEntity<List<FileDto>> getFilesByCustomerNameContaining(@RequestParam(value = "name") String name) {
+
+        return ResponseEntity.ok(fileService.getFilesByCustomerName(name));
+    }
 }

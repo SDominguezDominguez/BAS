@@ -13,6 +13,7 @@ import com.example.BAS.repositories.CustomerRepository;
 import com.example.BAS.repositories.FileRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -146,6 +147,31 @@ public class FileService {
         } else {
 
             throw new FileNotFoundException("klantnummer " + customerNumber);
+        }
+    }
+
+    public List<FileDto> getFilesByCustomerName(String name) {
+
+        Optional<List<Customer>> optionalCustomer = customerRepository.findCustomerByNameContainingIgnoreCase(name);
+
+        if (optionalCustomer.isPresent() && optionalCustomer.get().size() > 0) {
+
+            List<Customer> customers = optionalCustomer.get();
+            List<File> files = new ArrayList<>();
+
+            for (Customer customer : customers) {
+
+                if (customer.getFiles().size() > 0) {
+
+                    files = customer.getFiles();
+                }
+            }
+
+            return FileHelper.transferFileListToDtoList(files);
+
+        } else {
+
+            throw new FileNotFoundException("klantnummer " + name);
         }
     }
 }
