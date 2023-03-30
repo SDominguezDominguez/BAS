@@ -3,6 +3,7 @@ package com.example.BAS.services;
 import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.dtos.PolicyInputDto;
 import com.example.BAS.exceptions.PolicyNotFoundException;
+import com.example.BAS.exceptions.RecordNotFoundException;
 import com.example.BAS.helpers.PolicyHelper;
 import com.example.BAS.models.Policy;
 import com.example.BAS.repositories.PolicyRepository;
@@ -112,6 +113,20 @@ public class PolicyService {
         } else {
 
             throw new PolicyNotFoundException("rappeldatum " + date);
+        }
+    }
+
+    public List<PolicyDto> getPoliciesWhereAmountIsReceivedWithoutPsk() {
+
+        Optional<List<Policy>> optionalPolicies = policyRepository.getPoliciesByAmountIsNotNullAndReceiveDatePskIsNull();
+
+        if (optionalPolicies.isPresent() && optionalPolicies.get().size() > 0) {
+
+            return PolicyHelper.transferPolicyListToDtoList(optionalPolicies.get());
+
+        } else {
+
+            throw new RecordNotFoundException("Geen polissen gevonden waarvan wij het bedrag al hebben ontvangen, maar de psk nog niet hebben ontvangen");
         }
     }
 }

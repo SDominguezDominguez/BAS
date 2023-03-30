@@ -71,4 +71,10 @@ public class PolicyController {
 
         return ResponseEntity.ok(policyService.getPolicyByPolicyNumber(policyNumber));
     }
+
+    @GetMapping("/amounts")
+    public ResponseEntity<List<PolicyDto>> getPoliciesWhereAmountIsReceivedWithoutPsk() {
+
+        return ResponseEntity.ok(policyService.getPoliciesWhereAmountIsReceivedWithoutPsk());
+    }
 }
