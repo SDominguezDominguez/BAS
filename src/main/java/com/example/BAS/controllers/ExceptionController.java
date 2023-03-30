@@ -38,4 +38,10 @@ public class ExceptionController {
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = CompanyNotFoundException.class)
+    public ResponseEntity<Object> exception(CompanyNotFoundException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
