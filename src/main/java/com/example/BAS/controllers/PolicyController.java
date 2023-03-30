@@ -77,4 +77,10 @@ public class PolicyController {
 
         return ResponseEntity.ok(policyService.getPoliciesWhereAmountIsReceivedWithoutPsk());
     }
+
+    @PutMapping("/{id}/file/{fileId}")
+    public void assignPolicyToFile(@PathVariable Long id, @PathVariable Long fileId) {
+
+        policyService.assignPolicyToFile(id, fileId);
+    }
 }

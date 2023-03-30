@@ -17,6 +17,11 @@ public class PolicyHelper {
 
             PolicyDto dto = transferPolicyToDto(policy);
 
+            if (policy.getFile() != null) {
+
+                dto.setFileDto(FileHelper.transferFileToDto(policy.getFile()));
+            }
+
             policyDtos.add(dto);
         }
 
@@ -33,6 +38,11 @@ public class PolicyHelper {
         dto.setReceiveDateAmount(policy.getReceiveDateAmount());
         dto.setReceiveDatePsk(policy.getReceiveDatePsk());
         dto.setReminderDatePsk(policy.getReminderDatePsk());
+
+        if (policy.getFile() != null) {
+
+            dto.setFileDto(FileHelper.transferFileToDto(policy.getFile()));
+        }
 
         return dto;
     }

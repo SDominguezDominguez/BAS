@@ -2,10 +2,13 @@ package com.example.BAS.services;
 
 import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.dtos.PolicyInputDto;
+import com.example.BAS.exceptions.FileNotFoundException;
 import com.example.BAS.exceptions.PolicyNotFoundException;
 import com.example.BAS.exceptions.RecordNotFoundException;
 import com.example.BAS.helpers.PolicyHelper;
+import com.example.BAS.models.File;
 import com.example.BAS.models.Policy;
+import com.example.BAS.repositories.FileRepository;
 import com.example.BAS.repositories.PolicyRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +20,11 @@ import java.util.Optional;
 public class PolicyService {
 
     private final PolicyRepository policyRepository;
+    private final FileRepository fileRepository;
 
-    public PolicyService(PolicyRepository policyRepository) {
+    public PolicyService(PolicyRepository policyRepository, FileRepository fileRepository) {
         this.policyRepository = policyRepository;
+        this.fileRepository = fileRepository;
     }
 
     public List<PolicyDto> getAllPolicies() {
@@ -127,6 +132,34 @@ public class PolicyService {
         } else {
 
             throw new RecordNotFoundException("Geen polissen gevonden waarvan wij het bedrag al hebben ontvangen, maar de psk nog niet hebben ontvangen");
+        }
+    }
+
+    public void assignPolicyToFile(Long id, Long fileId) {
+
+        Optional<File> optionalFile = fileRepository.findById(fileId);
+        Optional<Policy> optionalPolicy = policyRepository.findById(id);
+
+        if (optionalFile.isPresent() && optionalPolicy.isPresent()) {
+
+            File file = optionalFile.get();
+            Policy policy = optionalPolicy.get();
+
+            policy.setFile(file);
+
+            policyRepository.save(policy);
+
+        } else if (optionalPolicy.isPresent()) {
+
+            throw new FileNotFoundException("id " + fileId);
+
+        } else if (optionalFile.isPresent()) {
+
+            throw new PolicyNotFoundException("id " + id);
+
+        } else {
+
+            throw new RecordNotFoundException("Polis met id " + id + " en dossier met id " + fileId + " niet gevonden");
         }
     }
 }
