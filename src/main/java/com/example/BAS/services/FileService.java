@@ -10,8 +10,10 @@ import com.example.BAS.exceptions.RecordNotFoundException;
 import com.example.BAS.helpers.FileHelper;
 import com.example.BAS.models.Customer;
 import com.example.BAS.models.File;
+import com.example.BAS.models.Policy;
 import com.example.BAS.repositories.CustomerRepository;
 import com.example.BAS.repositories.FileRepository;
+import com.example.BAS.repositories.PolicyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,10 +25,12 @@ public class FileService {
 
     private final FileRepository fileRepository;
     private final CustomerRepository customerRepository;
+    private final PolicyRepository policyRepository;
 
-    public FileService(FileRepository fileRepository, CustomerRepository customerRepository) {
+    public FileService(FileRepository fileRepository, CustomerRepository customerRepository, PolicyRepository policyRepository) {
         this.fileRepository = fileRepository;
         this.customerRepository = customerRepository;
+        this.policyRepository = policyRepository;
     }
 
     public List<FileDto> getAllFiles() {
@@ -198,6 +202,22 @@ public class FileService {
         } else {
 
             throw new FileNotFoundException("klantnummer " + label);
+        }
+    }
+
+    public FileDto getFileByPolicyNumber(String policyNumber) {
+
+        Optional<Policy> optionalPolicy = policyRepository.getPolicyByPolicyNumberIgnoreCase(policyNumber);
+
+        if (optionalPolicy.isPresent() && optionalPolicy.get().getFile() != null) {
+
+            File file = optionalPolicy.get().getFile();
+
+            return FileHelper.transferFileToDto(file);
+
+        } else {
+
+            throw new FileNotFoundException("polisnummer " + policyNumber);
         }
     }
 }

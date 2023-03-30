@@ -2,7 +2,9 @@ package com.example.BAS.helpers;
 
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.dtos.FileInputDto;
+import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.models.File;
+import com.example.BAS.models.Policy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,19 @@ public class FileHelper {
         for (File file : files) {
 
             FileDto dto = transferFileToDto(file);
+
+            if (file.getPolicies().size() > 0) {
+
+                List<Policy> policies = file.getPolicies();
+                List<PolicyDto> dtos = new ArrayList<>();
+
+                for (Policy policy : policies) {
+
+                    dtos.add(PolicyHelper.transferPolicyToDto(policy));
+                }
+
+                dto.setPolicyDtos(dtos);
+            }
 
             fileDtoList.add(dto);
         }

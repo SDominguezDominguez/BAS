@@ -91,4 +91,10 @@ public class FileController {
 
         return ResponseEntity.ok(fileService.getFilesByLabel(label));
     }
+
+    @GetMapping("/policy/{policyNumber}")
+    public ResponseEntity<FileDto> getFileByPolicyNumber(@PathVariable String policyNumber) {
+
+        return ResponseEntity.ok(fileService.getFileByPolicyNumber(policyNumber));
+    }
 }
