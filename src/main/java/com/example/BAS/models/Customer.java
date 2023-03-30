@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.List;
+
 @Entity
 public class Customer {
 
@@ -31,6 +33,11 @@ public class Customer {
     private String email;
     private Long advisorNumber;
     private Long officeNumber;
+
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL)
+    private List<File> files;
 
     public Long getId() {
         return id;
@@ -86,5 +93,13 @@ public class Customer {
 
     public void setOfficeNumber(Long officeNumber) {
         this.officeNumber = officeNumber;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 }
