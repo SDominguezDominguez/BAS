@@ -10,6 +10,15 @@ public class PolicyDto {
     private LocalDate receiveDateAmount;
     private LocalDate receiveDatePsk;
     private LocalDate reminderDatePsk;
+    private FileDto fileDto;
+
+    public FileDto getFileDto() {
+        return fileDto;
+    }
+
+    public void setFileDto(FileDto fileDto) {
+        this.fileDto = fileDto;
+    }
 
     public Long getId() {
         return id;

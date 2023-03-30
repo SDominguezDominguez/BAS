@@ -3,6 +3,7 @@ package com.example.BAS.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -28,6 +29,17 @@ public class Policy {
     private LocalDate receiveDateAmount;
     private LocalDate receiveDatePsk;
     private LocalDate reminderDatePsk;
+
+    @ManyToOne
+    private File file;
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
 
     public Long getId() {
         return id;

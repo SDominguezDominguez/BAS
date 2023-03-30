@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.List;
+
 @Entity
 public class File {
 
@@ -33,6 +35,19 @@ public class File {
 
     @ManyToOne
     private Customer customer;
+
+    @OneToMany(
+            mappedBy = "file",
+            cascade = CascadeType.ALL)
+    private List<Policy> policies;
+
+    public List<Policy> getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(List<Policy> policies) {
+        this.policies = policies;
+    }
 
     public Long getId() {
         return id;

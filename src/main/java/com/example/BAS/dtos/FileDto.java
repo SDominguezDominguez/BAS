@@ -3,6 +3,8 @@ package com.example.BAS.dtos;
 import com.example.BAS.enumerations.FileType;
 import com.example.BAS.enumerations.Status;
 
+import java.util.List;
+
 public class FileDto {
 
     private Long id;
@@ -12,6 +14,15 @@ public class FileDto {
     private FileType fileType;
     private Integer contractAmount;
     private CustomerDto customerDto;
+    private List<PolicyDto> policyDtos;
+
+    public List<PolicyDto> getPolicyDtos() {
+        return policyDtos;
+    }
+
+    public void setPolicyDtos(List<PolicyDto> policyDtos) {
+        this.policyDtos = policyDtos;
+    }
 
     public Long getId() {
         return id;
