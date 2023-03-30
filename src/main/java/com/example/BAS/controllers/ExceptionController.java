@@ -1,6 +1,7 @@
 package com.example.BAS.controllers;
 
 import com.example.BAS.exceptions.CustomerNotFoundException;
+import com.example.BAS.exceptions.FileNotFoundException;
 import com.example.BAS.exceptions.RecordAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,12 @@ public class ExceptionController {
 
     @ExceptionHandler(value = CustomerNotFoundException.class)
     public ResponseEntity<Object> exception(CustomerNotFoundException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = FileNotFoundException.class)
+    public ResponseEntity<Object> exception(FileNotFoundException exception) {
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
