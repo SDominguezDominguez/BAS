@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,10 +23,16 @@ public class PolicyController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<PolicyDto>> getAllPolicies() {
+    public ResponseEntity<List<PolicyDto>> getAllPolicies(@RequestParam(value = "date", required = false) LocalDate date) {
 
-        return ResponseEntity.ok(policyService.getAllPolicies());
+        if (date == null) {
 
+            return ResponseEntity.ok(policyService.getAllPolicies());
+
+        } else {
+
+            return ResponseEntity.ok(policyService.getAllPoliciesWhereReminderDateEqualsDate(date));
+        }
     }
 
     @PostMapping("")

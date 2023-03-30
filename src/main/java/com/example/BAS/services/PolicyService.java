@@ -8,6 +8,7 @@ import com.example.BAS.models.Policy;
 import com.example.BAS.repositories.PolicyRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +98,20 @@ public class PolicyService {
         } else {
 
             throw new PolicyNotFoundException("polisnummer " + policyNumber);
+        }
+    }
+
+    public List<PolicyDto> getAllPoliciesWhereReminderDateEqualsDate(LocalDate date) {
+
+        Optional<List<Policy>> optionalPolicies = policyRepository.getPoliciesByReminderDatePskEquals(date);
+
+        if (optionalPolicies.isPresent() && optionalPolicies.get().size() > 0) {
+
+            return PolicyHelper.transferPolicyListToDtoList(optionalPolicies.get());
+
+        } else {
+
+            throw new PolicyNotFoundException("rappeldatum " + date);
         }
     }
 }
