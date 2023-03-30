@@ -132,4 +132,20 @@ public class FileService {
             throw new RecordNotFoundException("Dossier met id " +  id + " en klant met id " + customerId + " niet gevonden");
         }
     }
+
+    public List<FileDto> getFilesByCustomerNumber(String customerNumber) {
+
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByCustomerNumber(customerNumber);
+
+        if (optionalCustomer.isPresent() && optionalCustomer.get().getFiles().size() > 0) {
+
+            List<File> files = optionalCustomer.get().getFiles();
+
+            return FileHelper.transferFileListToDtoList(files);
+
+        } else {
+
+            throw new FileNotFoundException("klantnummer " + customerNumber);
+        }
+    }
 }

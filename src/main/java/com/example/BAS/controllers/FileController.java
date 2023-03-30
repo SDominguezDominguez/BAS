@@ -71,4 +71,11 @@ public class FileController {
 
         fileService.assignFileToCustomer(id, customerId);
     }
+
+    @GetMapping("/customer/{customerNumber}")
+    public ResponseEntity<List<FileDto>> getFilesByCustomerNumber(@PathVariable String customerNumber) {
+
+        return ResponseEntity.ok(fileService.getFilesByCustomerNumber(customerNumber));
+
+    }
 }
