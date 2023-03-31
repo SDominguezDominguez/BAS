@@ -1,10 +1,15 @@
 package com.example.BAS.controllers;
 
 import com.example.BAS.dtos.CustomerDto;
+import com.example.BAS.dtos.CustomerForAdvisorDto;
 import com.example.BAS.dtos.CustomerInputDto;
+import com.example.BAS.exceptions.AuthenticationNotValid;
 import com.example.BAS.services.CustomerService;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -71,5 +76,86 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getCustomerByCustomerNumber(cn));
     }
 
+    @PostMapping("/{id}/advisors")
+    public ResponseEntity<Object> assignAdvisorToCustomer(@PathVariable Long id, @RequestParam(required = false) Long officeNumber, @RequestParam(required = false) Long advisorNumber) {
 
+        if (advisorNumber != null) {
+
+            customerService.assignAdvisorAndOfficeToCustomer(id, advisorNumber);
+
+        } else {
+
+            customerService.assignAdvisorOfficeToCustomer(id, officeNumber);
+        }
+
+        return ResponseEntity.ok("Adviseur succesvol aan klant toegewezen");
+    }
+
+    @GetMapping("/advisors")
+    public ResponseEntity<List<CustomerForAdvisorDto>> getAllCustomersByAdvisorNumber() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.getPrincipal() instanceof UserDetails userDetails) {
+
+            String username = userDetails.getUsername();
+
+            return ResponseEntity.ok(customerService.getCustomersForAdvisorByAdvisorNumber(username));
+
+        } else {
+
+            throw new AuthenticationNotValid("Geen autorisatie voor toegang aanwezig");
+        }
+    }
+
+    @GetMapping("/advisors/office")
+    public ResponseEntity<List<CustomerForAdvisorDto>> geAllCustomersByOfficeNumber() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.getPrincipal() instanceof UserDetails userDetails) {
+
+            String username = userDetails.getUsername();
+
+            return ResponseEntity.ok(customerService.getCustomersForAdvisorByOfficeNumber(username));
+
+        } else {
+
+            throw new AuthenticationNotValid("Geen autorisatie voor toegang aanwezig");
+        }
+    }
+
+    @GetMapping("/advisors/{cn}")
+    public ResponseEntity<CustomerForAdvisorDto> getCustomerByCustomerNumberForAdvisor(@PathVariable String cn) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.getPrincipal() instanceof UserDetails userDetails) {
+
+            String username = userDetails.getUsername();
+
+            return ResponseEntity.ok(customerService.getCustomersForAdvisorByCustomerNumberForAdvisor(cn, username));
+
+        } else {
+
+            throw new AuthenticationNotValid("Geen autorisatie voor toegang aanwezig");
+        }
+    }
+
+    @GetMapping("/advisors/office/{cn}")
+    public ResponseEntity<CustomerForAdvisorDto> getCustomerByCustomerNumberForOffice(@PathVariable String cn) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.getPrincipal() instanceof UserDetails userDetails) {
+
+            String username = userDetails.getUsername();
+
+            return ResponseEntity.ok(customerService.getCustomerForAdvisorByCustomerNumberForOffice(cn, username));
+
+        } else {
+
+            throw new AuthenticationNotValid("Geen autorisatie voor toegang aanwezig");
+        }
+    }
 }

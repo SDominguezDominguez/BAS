@@ -1,6 +1,7 @@
 package com.example.BAS.helpers;
 
 import com.example.BAS.dtos.CustomerDto;
+import com.example.BAS.dtos.CustomerForAdvisorDto;
 import com.example.BAS.dtos.CustomerInputDto;
 import com.example.BAS.dtos.FileDto;
 import com.example.BAS.models.Customer;
@@ -61,5 +62,34 @@ public class CustomerHelper {
         customer.setEmail(dto.getEmail());
 
         return customer;
+    }
+
+    public static List<CustomerForAdvisorDto> transferCustomerListToForAdvisorDtoList(List<Customer> customers) {
+
+        List<CustomerForAdvisorDto> customerForAdvisorDtos = new ArrayList<>();
+
+        for (Customer customer : customers) {
+
+            CustomerForAdvisorDto dto = transferCustomerToForAdvisorDto(customer);
+
+            customerForAdvisorDtos.add(dto);
+        }
+
+        return customerForAdvisorDtos;
+    }
+
+    public static CustomerForAdvisorDto transferCustomerToForAdvisorDto(Customer customer) {
+
+        CustomerForAdvisorDto dto = new CustomerForAdvisorDto();
+
+        dto.setName(customer.getName());
+        dto.setCustomerNumber(customer.getCustomerNumber());
+        dto.setEmail(customer.getEmail());
+
+        if (customer.getFiles().size() > 0 ) {
+            dto.setFileDto(FileHelper.transferFileListToForAdvisorDtoList(customer.getFiles()));
+        }
+
+        return dto;
     }
 }
