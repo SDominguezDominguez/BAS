@@ -22,10 +22,16 @@ public class CompanyController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<CompanyDto>> getAllCompanies() {
+    public ResponseEntity<List<CompanyDto>> getAllCompanies(@RequestParam(value = "name", required = false) String name) {
 
-        return ResponseEntity.ok(companyService.getAllCompanies());
+        if (name == null) {
 
+            return ResponseEntity.ok(companyService.getAllCompanies());
+
+        } else {
+
+            return ResponseEntity.ok(companyService.getCompaniesByNameContaining(name));
+        }
     }
 
     @PostMapping

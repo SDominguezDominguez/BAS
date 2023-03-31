@@ -5,6 +5,7 @@ import com.example.BAS.dtos.CompanyInputDto;
 import com.example.BAS.exceptions.CompanyNotFoundException;
 import com.example.BAS.helpers.CompanyHelper;
 import com.example.BAS.models.Company;
+import com.example.BAS.models.Policy;
 import com.example.BAS.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,11 @@ import java.util.Optional;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final PolicyService policyService;
 
-    public CompanyService(CompanyRepository companyRepository) {
+    public CompanyService(CompanyRepository companyRepository, PolicyService policyService) {
         this.companyRepository = companyRepository;
+        this.policyService = policyService;
     }
 
 
@@ -69,11 +72,35 @@ public class CompanyService {
 
         if (companyRepository.findById(id).isPresent()) {
 
+            List<Policy> policies = companyRepository.findById(id).get().getPolicies();
+
+            if (policies.size() > 0) {
+
+                for (Policy policy: policies) {
+
+                    policyService.removeCompanyFromPolicy(policy.getId());
+                }
+            }
+
             companyRepository.deleteById(id);
 
         } else {
 
             throw new CompanyNotFoundException("id " + id);
+        }
+    }
+
+    public List<CompanyDto> getCompaniesByNameContaining(String companyName) {
+
+        Optional<List<Company>> optionalCompanies = companyRepository.getCompaniesByNameContainingIgnoreCase(companyName);
+
+        if (optionalCompanies.isPresent() && optionalCompanies.get().size() > 0) {
+
+            return CompanyHelper.transferCompanyListToDtoList(optionalCompanies.get());
+
+        } else {
+
+            throw new CompanyNotFoundException("naam " + companyName);
         }
     }
 }

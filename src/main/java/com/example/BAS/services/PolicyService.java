@@ -195,4 +195,13 @@ public class PolicyService {
             throw new RecordNotFoundException("Polis met id " + id + " en maatschappij met id " + companyId + " niet gevonden");
         }
     }
+
+    public void removeCompanyFromPolicy(Long id) {
+
+        Policy policy = policyRepository.findById(id).get();
+
+        policy.setCompany(null);
+
+        policyRepository.save(policy);
+    }
 }
