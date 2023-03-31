@@ -22,6 +22,11 @@ public class PolicyHelper {
                 dto.setFileDto(FileHelper.transferFileToDto(policy.getFile()));
             }
 
+            if (policy.getCompany() != null) {
+
+                dto.setCompanyDto(CompanyHelper.transferCompanyToDto(policy.getCompany()));
+            }
+
             policyDtos.add(dto);
         }
 
@@ -42,6 +47,11 @@ public class PolicyHelper {
         if (policy.getFile() != null) {
 
             dto.setFileDto(FileHelper.transferFileToDto(policy.getFile()));
+        }
+
+        if (policy.getCompany() != null) {
+
+            dto.setCompanyDto(CompanyHelper.transferCompanyToDto(policy.getCompany()));
         }
 
         return dto;
