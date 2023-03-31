@@ -2,7 +2,7 @@ package com.example.BAS.models;
 
 import com.example.BAS.enumerations.FileType;
 import com.example.BAS.enumerations.Status;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 

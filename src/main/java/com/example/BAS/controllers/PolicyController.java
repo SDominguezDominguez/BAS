@@ -3,7 +3,7 @@ package com.example.BAS.controllers;
 import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.dtos.PolicyInputDto;
 import com.example.BAS.services.PolicyService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -82,5 +82,11 @@ public class PolicyController {
     public void assignPolicyToFile(@PathVariable Long id, @PathVariable Long fileId) {
 
         policyService.assignPolicyToFile(id, fileId);
+    }
+
+    @PutMapping("/{id}/company/{companyId}")
+    public void assignCompanyToPolicy(@PathVariable Long id, @PathVariable Long companyId) {
+
+        policyService.assignCompanyToPolicy(id, companyId);
     }
 }

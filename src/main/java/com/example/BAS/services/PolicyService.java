@@ -2,12 +2,15 @@ package com.example.BAS.services;
 
 import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.dtos.PolicyInputDto;
+import com.example.BAS.exceptions.CompanyNotFoundException;
 import com.example.BAS.exceptions.FileNotFoundException;
 import com.example.BAS.exceptions.PolicyNotFoundException;
 import com.example.BAS.exceptions.RecordNotFoundException;
 import com.example.BAS.helpers.PolicyHelper;
+import com.example.BAS.models.Company;
 import com.example.BAS.models.File;
 import com.example.BAS.models.Policy;
+import com.example.BAS.repositories.CompanyRepository;
 import com.example.BAS.repositories.FileRepository;
 import com.example.BAS.repositories.PolicyRepository;
 import org.springframework.stereotype.Service;
@@ -21,10 +24,12 @@ public class PolicyService {
 
     private final PolicyRepository policyRepository;
     private final FileRepository fileRepository;
+    private final CompanyRepository companyRepository;
 
-    public PolicyService(PolicyRepository policyRepository, FileRepository fileRepository) {
+    public PolicyService(PolicyRepository policyRepository, FileRepository fileRepository, CompanyRepository companyRepository) {
         this.policyRepository = policyRepository;
         this.fileRepository = fileRepository;
+        this.companyRepository = companyRepository;
     }
 
     public List<PolicyDto> getAllPolicies() {
@@ -161,5 +166,42 @@ public class PolicyService {
 
             throw new RecordNotFoundException("Polis met id " + id + " en dossier met id " + fileId + " niet gevonden");
         }
+    }
+
+    public void assignCompanyToPolicy(Long id, Long companyId) {
+
+        Optional<Company> optionalCompany = companyRepository.findById(companyId);
+        Optional<Policy> optionalPolicy = policyRepository.findById(id);
+
+        if (optionalCompany.isPresent() && optionalPolicy.isPresent()) {
+
+            Company company = optionalCompany.get();
+            Policy policy = optionalPolicy.get();
+
+            policy.setCompany(company);
+
+            policyRepository.save(policy);
+
+        } else if (optionalPolicy.isPresent()) {
+
+            throw new CompanyNotFoundException("id " + companyId);
+
+        } else if (optionalCompany.isPresent()) {
+
+            throw new PolicyNotFoundException("id " + id);
+
+        } else {
+
+            throw new RecordNotFoundException("Polis met id " + id + " en maatschappij met id " + companyId + " niet gevonden");
+        }
+    }
+
+    public void removeCompanyFromPolicy(Long id) {
+
+        Policy policy = policyRepository.findById(id).get();
+
+        policy.setCompany(null);
+
+        policyRepository.save(policy);
     }
 }
