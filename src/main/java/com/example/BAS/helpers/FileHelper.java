@@ -1,6 +1,7 @@
 package com.example.BAS.helpers;
 
 import com.example.BAS.dtos.FileDto;
+import com.example.BAS.dtos.FileForAdvisorDto;
 import com.example.BAS.dtos.FileInputDto;
 import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.models.File;
@@ -67,5 +68,30 @@ public class FileHelper {
         file.setContractAmount(dto.getContractAmount());
 
         return file;
+    }
+
+    public static List<FileForAdvisorDto> transferFileListToForAdvisorDtoList(List<File> files) {
+
+        List<FileForAdvisorDto> fileForAdvisorDtos = new ArrayList<>();
+
+        for (File file : files) {
+
+            FileForAdvisorDto dto = transferFileToForAdvisorDto(file);
+
+            fileForAdvisorDtos.add(dto);
+        }
+
+        return fileForAdvisorDtos;
+    }
+
+    public static FileForAdvisorDto transferFileToForAdvisorDto(File file) {
+
+        FileForAdvisorDto dto = new FileForAdvisorDto();
+
+        dto.setFileType(String.valueOf(file.getFileType()));
+        dto.setStatus(String.valueOf(file.getStatus()));
+        dto.setStatusComment(file.getStatusComment());
+
+        return dto;
     }
 }
