@@ -2,7 +2,7 @@ package com.example.BAS.dtos;
 
 import com.example.BAS.enumerations.FileType;
 import com.example.BAS.enumerations.Status;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class FileInputDto {
 

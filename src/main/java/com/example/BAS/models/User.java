@@ -1,7 +1,6 @@
 package com.example.BAS.models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +11,7 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    private String apiKey;
     private String email;
     private Long officeNumber;
     @Column(unique = true)
@@ -83,4 +83,11 @@ public class User {
     }
 
 
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
 }

@@ -1,7 +1,7 @@
 package com.example.BAS.dtos;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Past;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Past;
 
 import java.time.LocalDate;
 

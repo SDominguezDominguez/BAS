@@ -3,7 +3,7 @@ package com.example.BAS.controllers;
 import com.example.BAS.dtos.CustomerDto;
 import com.example.BAS.dtos.CustomerInputDto;
 import com.example.BAS.services.CustomerService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

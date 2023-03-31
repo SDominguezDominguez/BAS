@@ -2,10 +2,11 @@ package com.example.BAS.dtos;
 
 import com.example.BAS.models.Authority;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 public class UserDto {
@@ -16,6 +17,8 @@ public class UserDto {
     @NotEmpty
     @Min(6)
     private String password;
+
+    private String apiKey;
 
     @NotEmpty
     @Email
@@ -74,5 +77,13 @@ public class UserDto {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }
