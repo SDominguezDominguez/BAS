@@ -83,4 +83,10 @@ public class PolicyController {
 
         policyService.assignPolicyToFile(id, fileId);
     }
+
+    @PutMapping("/{id}/company/{companyId}")
+    public void assignCompanyToPolicy(@PathVariable Long id, @PathVariable Long companyId) {
+
+        policyService.assignCompanyToPolicy(id, companyId);
+    }
 }
