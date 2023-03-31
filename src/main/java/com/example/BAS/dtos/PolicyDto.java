@@ -11,6 +11,15 @@ public class PolicyDto {
     private LocalDate receiveDatePsk;
     private LocalDate reminderDatePsk;
     private FileDto fileDto;
+    private CompanyDto companyDto;
+
+    public CompanyDto getCompanyDto() {
+        return companyDto;
+    }
+
+    public void setCompanyDto(CompanyDto companyDto) {
+        this.companyDto = companyDto;
+    }
 
     public FileDto getFileDto() {
         return fileDto;

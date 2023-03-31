@@ -33,6 +33,17 @@ public class Policy {
     @ManyToOne
     private File file;
 
+    @ManyToOne
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     public File getFile() {
         return file;
     }

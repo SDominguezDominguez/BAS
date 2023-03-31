@@ -3,8 +3,11 @@ package com.example.BAS.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
+import java.util.List;
 
 @Entity
 public class Company {
@@ -24,6 +27,17 @@ public class Company {
     private String name;
     private String contactPerson;
     private String email;
+
+    @OneToMany(mappedBy = "company")
+    private List<Policy> policies;
+
+    public List<Policy> getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(List<Policy> policies) {
+        this.policies = policies;
+    }
 
     public Long getId() {
         return id;
