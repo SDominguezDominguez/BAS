@@ -20,19 +20,6 @@ public class CustomerHelper {
 
             CustomerDto dto = transferCustomerToDto(customer);
 
-            if (customer.getFiles().size() > 0) {
-
-                List<File> files = customer.getFiles();
-                List<FileDto> dtos = new ArrayList<>();
-
-                for (File file : files) {
-
-                    dtos.add(FileHelper.transferFileToDto(file));
-                }
-
-                dto.setFileDto(dtos);
-            }
-
             customerDtoList.add(dto);
         }
 
@@ -48,6 +35,29 @@ public class CustomerHelper {
         dto.setLabel(customer.getLabel());
         dto.setEmail(customer.getEmail());
         dto.setId(customer.getId());
+
+        if (customer.getFiles() != null) {
+
+            List<File> files = customer.getFiles();
+            List<FileDto> dtos = new ArrayList<>();
+
+            for (File file : files) {
+
+                FileDto fileDto = new FileDto();
+
+                fileDto.setComment(file.getComment());
+                fileDto.setId(file.getId());
+                fileDto.setFileType(file.getFileType());
+                fileDto.setStatus(file.getStatus());
+                fileDto.setStatusComment(file.getStatusComment());
+                fileDto.setContractAmount(file.getContractAmount());
+                fileDto.setApplicationFormPresent(file.isApplicationFormPresent());
+
+                dtos.add(fileDto);
+            }
+
+            dto.setFileDto(dtos);
+        }
 
         return dto;
     }
@@ -87,6 +97,7 @@ public class CustomerHelper {
         dto.setEmail(customer.getEmail());
 
         if (customer.getFiles().size() > 0 ) {
+
             dto.setFileDto(FileHelper.transferFileListToForAdvisorDtoList(customer.getFiles()));
         }
 

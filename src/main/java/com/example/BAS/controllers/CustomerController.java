@@ -5,11 +5,13 @@ import com.example.BAS.dtos.CustomerForAdvisorDto;
 import com.example.BAS.dtos.CustomerInputDto;
 import com.example.BAS.exceptions.AuthenticationNotValid;
 import com.example.BAS.services.CustomerService;
+
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,6 +29,7 @@ public class CustomerController {
     }
 
     @GetMapping("")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<CustomerDto>> getAllCustomers(@RequestParam(value = "name", required = false) String name) {
 
         if (name == null) {
@@ -71,6 +74,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{cn}")
+    @Transactional(readOnly = true)
     public ResponseEntity<CustomerDto> getCustomerByCustomerNumber(@PathVariable String cn) {
 
         return ResponseEntity.ok(customerService.getCustomerByCustomerNumber(cn));
@@ -92,6 +96,7 @@ public class CustomerController {
     }
 
     @GetMapping("/advisors")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<CustomerForAdvisorDto>> getAllCustomersByAdvisorNumber() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -109,6 +114,7 @@ public class CustomerController {
     }
 
     @GetMapping("/advisors/office")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<CustomerForAdvisorDto>> geAllCustomersByOfficeNumber() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -126,6 +132,7 @@ public class CustomerController {
     }
 
     @GetMapping("/advisors/{cn}")
+    @Transactional(readOnly = true)
     public ResponseEntity<CustomerForAdvisorDto> getCustomerByCustomerNumberForAdvisor(@PathVariable String cn) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -143,6 +150,7 @@ public class CustomerController {
     }
 
     @GetMapping("/advisors/office/{cn}")
+    @Transactional(readOnly = true)
     public ResponseEntity<CustomerForAdvisorDto> getCustomerByCustomerNumberForOffice(@PathVariable String cn) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

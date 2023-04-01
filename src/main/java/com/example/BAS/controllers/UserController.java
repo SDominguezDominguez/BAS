@@ -88,7 +88,7 @@ public class UserController {
 
             userService.addAuthority(username, authorityName);
 
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
 
         } catch (Exception ex) {
 

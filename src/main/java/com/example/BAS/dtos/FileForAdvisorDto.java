@@ -5,7 +5,7 @@ public class FileForAdvisorDto {
     private String status;
     private String statusComment;
     private String fileType;
-    private byte[] applicationForm;
+    private boolean applicationFormPresent;
 
     public String getStatus() {
         return status;
@@ -31,11 +31,11 @@ public class FileForAdvisorDto {
         this.fileType = fileType;
     }
 
-    public byte[] getApplicationForm() {
-        return applicationForm;
+    public boolean isApplicationFormPresent() {
+        return applicationFormPresent;
     }
 
-    public void setApplicationForm(byte[] applicationForm) {
-        this.applicationForm = applicationForm;
+    public void setApplicationFormPresent(boolean applicationFormPresent) {
+        this.applicationFormPresent = applicationFormPresent;
     }
 }

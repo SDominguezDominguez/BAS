@@ -234,6 +234,7 @@ public class FileService {
             File file = optionalFile.get();
 
             file.setApplicationForm(application.getBytes());
+            file.setApplicationFormPresent(true);
 
             fileRepository.save(file);
         }

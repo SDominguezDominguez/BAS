@@ -8,6 +8,7 @@ import com.example.BAS.services.FileService;
 
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -77,6 +78,7 @@ public class FileController {
     }
 
     @GetMapping("/customer/{customerNumber}")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<FileDto>> getFilesByCustomerNumber(@PathVariable String customerNumber) {
 
         return ResponseEntity.ok(fileService.getFilesByCustomerNumber(customerNumber));
@@ -84,18 +86,21 @@ public class FileController {
     }
 
     @GetMapping("/customers")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<FileDto>> getFilesByCustomerNameContaining(@RequestParam(value = "name") String name) {
 
         return ResponseEntity.ok(fileService.getFilesByCustomerName(name));
     }
 
     @GetMapping("label/{label}")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<FileDto>> getFilesByLabel(@PathVariable Label label) {
 
         return ResponseEntity.ok(fileService.getFilesByLabel(label));
     }
 
     @GetMapping("/policy/{policyNumber}")
+    @Transactional(readOnly = true)
     public ResponseEntity<FileDto> getFileByPolicyNumber(@PathVariable String policyNumber) {
 
         return ResponseEntity.ok(fileService.getFileByPolicyNumber(policyNumber));
