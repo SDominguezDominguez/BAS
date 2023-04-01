@@ -5,6 +5,7 @@ public class FileForAdvisorDto {
     private String status;
     private String statusComment;
     private String fileType;
+    private byte[] applicationForm;
 
     public String getStatus() {
         return status;
@@ -28,5 +29,13 @@ public class FileForAdvisorDto {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public byte[] getApplicationForm() {
+        return applicationForm;
+    }
+
+    public void setApplicationForm(byte[] applicationForm) {
+        this.applicationForm = applicationForm;
     }
 }

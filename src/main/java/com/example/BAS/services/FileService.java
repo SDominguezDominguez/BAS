@@ -14,9 +14,15 @@ import com.example.BAS.models.Policy;
 import com.example.BAS.repositories.CustomerRepository;
 import com.example.BAS.repositories.FileRepository;
 import com.example.BAS.repositories.PolicyRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -218,6 +224,38 @@ public class FileService {
         } else {
 
             throw new FileNotFoundException("polisnummer " + policyNumber);
+        }
+    }
+
+    public void uploadApplicationForm(Long id, MultipartFile application) throws IOException {
+
+        Optional<File> optionalFile = fileRepository.findById(id);
+
+        if (optionalFile.isPresent()) {
+
+            File file = optionalFile.get();
+
+            file.setApplicationForm(application.getBytes());
+
+            fileRepository.save(file);
+        }
+    }
+
+    public ResponseEntity<byte[]> downloadApplicationForm(Long id, HttpServletRequest request) {
+
+        Optional<File> optionalFile = fileRepository.findById(id);
+
+        if (optionalFile.isPresent()) {
+
+            File file = optionalFile.get();
+
+            String mimeType = request.getServletContext().getMimeType(Arrays.toString(file.getApplicationForm()));
+
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file.getApplicationForm());
+
+        } else {
+
+            throw new FileNotFoundException("id" + id);
         }
     }
 }

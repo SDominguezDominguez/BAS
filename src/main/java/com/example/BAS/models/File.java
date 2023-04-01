@@ -32,6 +32,8 @@ public class File {
     @Enumerated(EnumType.STRING)
     private FileType fileType;
     private Integer contractAmount;
+    @Lob
+    private byte[] applicationForm;
 
     @ManyToOne
     private Customer customer;
@@ -103,5 +105,13 @@ public class File {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public byte[] getApplicationForm() {
+        return applicationForm;
+    }
+
+    public void setApplicationForm(byte[] applicationForm) {
+        this.applicationForm = applicationForm;
     }
 }

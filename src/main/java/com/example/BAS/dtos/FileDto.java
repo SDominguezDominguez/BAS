@@ -13,6 +13,7 @@ public class FileDto {
     private String comment;
     private FileType fileType;
     private Integer contractAmount;
+    private byte[] applicationForm;
     private CustomerDto customerDto;
     private List<PolicyDto> policyDtos;
 
@@ -78,5 +79,13 @@ public class FileDto {
 
     public void setCustomerDto(CustomerDto customerDto) {
         this.customerDto = customerDto;
+    }
+
+    public byte[] getApplicationForm() {
+        return applicationForm;
+    }
+
+    public void setApplicationForm(byte[] applicationForm) {
+        this.applicationForm = applicationForm;
     }
 }

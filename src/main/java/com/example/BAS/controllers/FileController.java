@@ -5,11 +5,15 @@ import com.example.BAS.dtos.FileInputDto;
 import com.example.BAS.enumerations.Label;
 import com.example.BAS.enumerations.Status;
 import com.example.BAS.services.FileService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -96,5 +100,19 @@ public class FileController {
     public ResponseEntity<FileDto> getFileByPolicyNumber(@PathVariable String policyNumber) {
 
         return ResponseEntity.ok(fileService.getFileByPolicyNumber(policyNumber));
+    }
+
+    @PostMapping("/{id}/upload")
+    public ResponseEntity<Object> uploadApplicationForm(@RequestParam MultipartFile applicationForm, @PathVariable Long id) throws IOException {
+
+        fileService.uploadApplicationForm(id, applicationForm);
+
+        return ResponseEntity.ok("Upload succesvol");
+    }
+
+    @GetMapping("/{id}/download")
+    ResponseEntity<byte[]> downloadApplicationForm(@PathVariable Long id, HttpServletRequest request) {
+
+        return fileService.downloadApplicationForm(id, request);
     }
 }
