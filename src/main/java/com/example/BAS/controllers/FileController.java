@@ -6,7 +6,6 @@ import com.example.BAS.enumerations.Label;
 import com.example.BAS.enumerations.Status;
 import com.example.BAS.services.FileService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -111,8 +110,8 @@ public class FileController {
     }
 
     @GetMapping("/{id}/download")
-    ResponseEntity<byte[]> downloadApplicationForm(@PathVariable Long id, HttpServletRequest request) {
+    ResponseEntity<byte[]> downloadApplicationForm(@PathVariable Long id) {
 
-        return fileService.downloadApplicationForm(id, request);
+        return fileService.downloadApplicationForm(id);
     }
 }
