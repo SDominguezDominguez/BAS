@@ -6,9 +6,9 @@ import com.example.BAS.enumerations.Label;
 import com.example.BAS.enumerations.Status;
 import com.example.BAS.services.FileService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -78,6 +78,7 @@ public class FileController {
     }
 
     @GetMapping("/customer/{customerNumber}")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<FileDto>> getFilesByCustomerNumber(@PathVariable String customerNumber) {
 
         return ResponseEntity.ok(fileService.getFilesByCustomerNumber(customerNumber));
@@ -85,18 +86,21 @@ public class FileController {
     }
 
     @GetMapping("/customers")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<FileDto>> getFilesByCustomerNameContaining(@RequestParam(value = "name") String name) {
 
         return ResponseEntity.ok(fileService.getFilesByCustomerName(name));
     }
 
     @GetMapping("label/{label}")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<FileDto>> getFilesByLabel(@PathVariable Label label) {
 
         return ResponseEntity.ok(fileService.getFilesByLabel(label));
     }
 
     @GetMapping("/policy/{policyNumber}")
+    @Transactional(readOnly = true)
     public ResponseEntity<FileDto> getFileByPolicyNumber(@PathVariable String policyNumber) {
 
         return ResponseEntity.ok(fileService.getFileByPolicyNumber(policyNumber));
@@ -111,8 +115,8 @@ public class FileController {
     }
 
     @GetMapping("/{id}/download")
-    ResponseEntity<byte[]> downloadApplicationForm(@PathVariable Long id, HttpServletRequest request) {
+    ResponseEntity<byte[]> downloadApplicationForm(@PathVariable Long id) {
 
-        return fileService.downloadApplicationForm(id, request);
+        return fileService.downloadApplicationForm(id);
     }
 }

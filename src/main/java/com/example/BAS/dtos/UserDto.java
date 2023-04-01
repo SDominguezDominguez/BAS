@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class UserDto {
@@ -15,7 +15,6 @@ public class UserDto {
     private String username;
 
     @NotEmpty
-    @Min(6)
     private String password;
 
     private String apiKey;
@@ -24,7 +23,7 @@ public class UserDto {
     @Email
     private String email;
 
-    @NotEmpty
+    @NotNull
     private Integer officeNumber;
     private Integer advisorNumber;
 

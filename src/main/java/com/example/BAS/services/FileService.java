@@ -19,10 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -236,20 +234,19 @@ public class FileService {
             File file = optionalFile.get();
 
             file.setApplicationForm(application.getBytes());
+            file.setApplicationFormPresent(true);
 
             fileRepository.save(file);
         }
     }
 
-    public ResponseEntity<byte[]> downloadApplicationForm(Long id, HttpServletRequest request) {
+    public ResponseEntity<byte[]> downloadApplicationForm(Long id) {
 
         Optional<File> optionalFile = fileRepository.findById(id);
 
         if (optionalFile.isPresent()) {
 
             File file = optionalFile.get();
-
-            String mimeType = request.getServletContext().getMimeType(Arrays.toString(file.getApplicationForm()));
 
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file.getApplicationForm());
 

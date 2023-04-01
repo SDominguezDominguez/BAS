@@ -35,6 +35,8 @@ public class File {
     @Lob
     private byte[] applicationForm;
 
+    private boolean applicationFormPresent;
+
     @ManyToOne
     private Customer customer;
 
@@ -113,5 +115,13 @@ public class File {
 
     public void setApplicationForm(byte[] applicationForm) {
         this.applicationForm = applicationForm;
+    }
+
+    public boolean isApplicationFormPresent() {
+        return applicationFormPresent;
+    }
+
+    public void setApplicationFormPresent(boolean applicationFormPresent) {
+        this.applicationFormPresent = applicationFormPresent;
     }
 }

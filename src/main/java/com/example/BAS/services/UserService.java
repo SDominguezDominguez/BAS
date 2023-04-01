@@ -2,7 +2,6 @@ package com.example.BAS.services;
 
 
 import com.example.BAS.dtos.UserDto;
-import com.example.BAS.exceptions.UsernameAlreadyExistsException;
 import com.example.BAS.exceptions.UsernameNotFoundException;
 import com.example.BAS.models.Authority;
 import com.example.BAS.models.User;
@@ -72,12 +71,14 @@ public class UserService {
 
     public void deleteUser(String username) {
 
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+
         userRepository.deleteById(username);
     }
 
     public void updateUser(String username, UserDto newUser) {
 
-        if (!userRepository.existsById(username)) throw new UsernameAlreadyExistsException(username);
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
 
         User user = userRepository.findById(username).get();
 

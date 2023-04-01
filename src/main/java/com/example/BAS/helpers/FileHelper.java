@@ -49,6 +49,7 @@ public class FileHelper {
         dto.setStatus(file.getStatus());
         dto.setStatusComment(file.getStatusComment());
         dto.setContractAmount(file.getContractAmount());
+        dto.setApplicationFormPresent(file.isApplicationFormPresent());
 
         if (file.getCustomer() != null) {
             dto.setCustomerDto(CustomerHelper.transferCustomerToDto(file.getCustomer()));
@@ -66,6 +67,7 @@ public class FileHelper {
         file.setStatusComment(dto.getStatusComment());
         file.setComment(dto.getComment());
         file.setContractAmount(dto.getContractAmount());
+        file.setApplicationFormPresent(false);
 
         return file;
     }
@@ -91,6 +93,7 @@ public class FileHelper {
         dto.setFileType(String.valueOf(file.getFileType()));
         dto.setStatus(String.valueOf(file.getStatus()));
         dto.setStatusComment(file.getStatusComment());
+        dto.setApplicationFormPresent(file.isApplicationFormPresent());
 
         return dto;
     }
