@@ -32,6 +32,16 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Policy> policies;
 
+    public Company() {
+    }
+
+    public Company(Long id, String name, String contactPerson, String email) {
+        this.id = id;
+        this.name = name;
+        this.contactPerson = contactPerson;
+        this.email = email;
+    }
+
     public List<Policy> getPolicies() {
         return policies;
     }

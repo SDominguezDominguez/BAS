@@ -57,7 +57,7 @@ public class CompanyService {
             }
 
             if (dto.getName() != null) {
-                company.setEmail(dto.getEmail());
+                company.setName(dto.getName());
             }
 
             companyRepository.save(company);
