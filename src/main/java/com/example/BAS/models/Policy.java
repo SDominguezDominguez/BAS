@@ -36,6 +36,19 @@ public class Policy {
     @ManyToOne
     private Company company;
 
+    public Policy() {
+    }
+
+    public Policy(Long id, String policyNumber, Integer amount, LocalDate receiveDateAmount, LocalDate receiveDatePsk, LocalDate reminderDatePsk, Company company) {
+        this.id = id;
+        this.policyNumber = policyNumber;
+        this.amount = amount;
+        this.receiveDateAmount = receiveDateAmount;
+        this.receiveDatePsk = receiveDatePsk;
+        this.reminderDatePsk = reminderDatePsk;
+        this.company = company;
+    }
+
     public Company getCompany() {
         return company;
     }

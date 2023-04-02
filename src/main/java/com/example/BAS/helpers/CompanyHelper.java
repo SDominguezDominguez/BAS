@@ -45,4 +45,28 @@ public class CompanyHelper {
 
         return company;
     }
+
+    public static Company transferCompanyDtoToCompany(CompanyDto dto) {
+
+        Company company = new Company();
+
+        company.setId(dto.getId());
+        company.setName(dto.getName());
+        company.setContactPerson(dto.getContactPerson());
+        company.setEmail(dto.getEmail());
+
+        return company;
+    }
+
+    public static List<Company> transferCompanyDtoListToCompanyList(List<CompanyDto> companies) {
+
+        List<Company> companyList = new ArrayList<>();
+
+        for (CompanyDto dto : companies) {
+
+            companyList.add(transferCompanyDtoToCompany(dto));
+        }
+
+        return companyList;
+    }
 }
