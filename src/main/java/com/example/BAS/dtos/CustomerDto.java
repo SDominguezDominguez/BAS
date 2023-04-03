@@ -11,6 +11,8 @@ public class CustomerDto {
     private String customerNumber;
     private Label label;
     private String email;
+    private Long advisorNumber;
+    private Long officeNumber;
     private List<FileDto> fileDto;
 
     public Long getId() {
@@ -59,5 +61,21 @@ public class CustomerDto {
 
     public void setFileDto(List<FileDto> fileDto) {
         this.fileDto = fileDto;
+    }
+
+    public Long getAdvisorNumber() {
+        return advisorNumber;
+    }
+
+    public void setAdvisorNumber(Long advisorNumber) {
+        this.advisorNumber = advisorNumber;
+    }
+
+    public Long getOfficeNumber() {
+        return officeNumber;
+    }
+
+    public void setOfficeNumber(Long officeNumber) {
+        this.officeNumber = officeNumber;
     }
 }
