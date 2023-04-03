@@ -27,6 +27,26 @@ public class User {
     )
     private Set<Authority> authorities = new HashSet<>();
 
+    public User() {
+    }
+
+    public User(String username, String password, String apiKey, String email, Long officeNumber) {
+        this.username = username;
+        this.password = password;
+        this.apiKey = apiKey;
+        this.email = email;
+        this.officeNumber = officeNumber;
+    }
+
+    public User(String username, String password, String apiKey, String email, Long officeNumber, Long advisorNumber) {
+        this.username = username;
+        this.password = password;
+        this.apiKey = apiKey;
+        this.email = email;
+        this.officeNumber = officeNumber;
+        this.advisorNumber = advisorNumber;
+    }
+
     public String getUsername() {
         return username;
     }
