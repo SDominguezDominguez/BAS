@@ -147,7 +147,7 @@ public class FileService {
 
         Optional<Customer> optionalCustomer = customerRepository.findCustomerByCustomerNumber(customerNumber);
 
-        if (optionalCustomer.isPresent() && optionalCustomer.get().getFiles().size() > 0) {
+        if (optionalCustomer.isPresent() && optionalCustomer.get().getFiles() != null) {
 
             List<File> files = optionalCustomer.get().getFiles();
 
@@ -155,7 +155,7 @@ public class FileService {
 
         } else {
 
-            throw new FileNotFoundException("klantnummer " + customerNumber);
+            throw new CustomerNotFoundException("klantnummer " + customerNumber);
         }
     }
 

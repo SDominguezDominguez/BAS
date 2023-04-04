@@ -20,7 +20,7 @@ public class FileHelper {
 
             FileDto dto = transferFileToDto(file);
 
-            if (file.getPolicies().size() > 0) {
+            if (file.getPolicies() != null) {
 
                 List<Policy> policies = file.getPolicies();
                 List<PolicyDto> dtos = new ArrayList<>();
@@ -96,5 +96,31 @@ public class FileHelper {
         dto.setApplicationFormPresent(file.isApplicationFormPresent());
 
         return dto;
+    }
+
+    public static File transferFileDtoToFile(FileDto dto) {
+
+        File file = new File();
+
+        file.setId(dto.getId());
+        file.setStatus(dto.getStatus());
+        file.setStatusComment(dto.getStatusComment());
+        file.setComment(dto.getComment());
+        file.setFileType(dto.getFileType());
+        file.setContractAmount(dto.getContractAmount());
+
+        return file;
+    }
+
+    public static List<File> transferFileDtoListToFileList(List<FileDto> files) {
+
+        List<File> fileList = new ArrayList<>();
+
+        for (FileDto dto : files) {
+
+            fileList.add(transferFileDtoToFile(dto));
+        }
+
+        return fileList;
     }
 }

@@ -45,6 +45,18 @@ public class File {
             cascade = CascadeType.ALL)
     private List<Policy> policies;
 
+    public File() {
+    }
+
+    public File(Long id, Status status, String statusComment, String comment, FileType fileType, Integer contractAmount) {
+        this.id = id;
+        this.status = status;
+        this.statusComment = statusComment;
+        this.comment = comment;
+        this.fileType = fileType;
+        this.contractAmount = contractAmount;
+    }
+
     public List<Policy> getPolicies() {
         return policies;
     }
