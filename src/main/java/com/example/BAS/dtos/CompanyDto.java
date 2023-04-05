@@ -7,6 +7,16 @@ public class CompanyDto {
     private String contactPerson;
     private String email;
 
+    public CompanyDto() {
+    }
+
+    public CompanyDto(Long id, String name, String contactPerson, String email) {
+        this.id = id;
+        this.name = name;
+        this.contactPerson = contactPerson;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
