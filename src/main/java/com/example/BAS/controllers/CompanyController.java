@@ -62,6 +62,6 @@ public class CompanyController {
 
         companyService.deleteCompany(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body("companie deleted");
     }
 }

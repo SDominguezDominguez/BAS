@@ -12,6 +12,15 @@ public class CompanyInputDto {
     @Email
     private String email;
 
+    public CompanyInputDto() {
+    }
+
+    public CompanyInputDto(String name, String contactPerson, String email) {
+        this.name = name;
+        this.contactPerson = contactPerson;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }

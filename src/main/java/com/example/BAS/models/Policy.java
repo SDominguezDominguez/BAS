@@ -49,6 +49,12 @@ public class Policy {
         this.company = company;
     }
 
+    public Policy(Long id, String policyNumber, Company company) {
+        this.id = id;
+        this.policyNumber = policyNumber;
+        this.company = company;
+    }
+
     public Company getCompany() {
         return company;
     }
