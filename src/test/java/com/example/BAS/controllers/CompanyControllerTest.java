@@ -110,27 +110,27 @@ class CompanyControllerTest {
                 .andExpect(status().isCreated());
     }
 
-//    @Test
-//    @WithMockUser(username = "testuser", roles = "ADMIN")
-//    void changeCompany() throws Exception {
-//
-//        mockMvc.perform(MockMvcRequestBuilders.patch("/companies/" + company1.getId())
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(asJsonString(companyInputDto2)))
-//                .andExpect(status().isOk());
-//                .andExpect(jsonPath("id").value(company1.getId().toString()))
-//                .andExpect(jsonPath("name").value("SNS"))
-//                .andExpect(jsonPath("contactPerson").value("Test"))
-//                .andExpect(jsonPath("email").value("test@test.nl"));
-//    }
+    @Test
+    @WithMockUser(username = "testuser", roles = "ADMIN")
+    void changeCompany() throws Exception {
 
-//    @Test
-//    @WithMockUser(username = "testuser", roles = "ADMIN")
-//    void deleteCompany() throws Exception {
-//
-//        mockMvc.perform(MockMvcRequestBuilders.delete("/companies/1/"))
-//                .andExpect(status().isNoContent());
-//    }
+        mockMvc.perform(MockMvcRequestBuilders.patch("/companies/" + company1.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(companyInputDto2)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(company1.getId().toString()))
+                .andExpect(jsonPath("name").value("SNS"))
+                .andExpect(jsonPath("contactPerson").value("Test"))
+                .andExpect(jsonPath("email").value("test@test.nl"));
+    }
+
+    @Test
+    @WithMockUser(username = "testuser", roles = "ADMIN")
+    void deleteCompany() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/companies/1/"))
+                .andExpect(status().isNoContent());
+    }
 
     public static String asJsonString(final CompanyInputDto dto) {
 
