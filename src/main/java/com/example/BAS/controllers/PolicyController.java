@@ -4,6 +4,8 @@ import com.example.BAS.dtos.PolicyDto;
 import com.example.BAS.dtos.PolicyInputDto;
 import com.example.BAS.services.PolicyService;
 import javax.validation.Valid;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,7 +25,7 @@ public class PolicyController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<PolicyDto>> getAllPolicies(@RequestParam(value = "date", required = false) LocalDate date) {
+    public ResponseEntity<List<PolicyDto>> getAllPolicies(@RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
         if (date == null) {
 
@@ -79,14 +81,18 @@ public class PolicyController {
     }
 
     @PutMapping("/{id}/file/{fileId}")
-    public void assignPolicyToFile(@PathVariable Long id, @PathVariable Long fileId) {
+    public ResponseEntity<Object> assignPolicyToFile(@PathVariable Long id, @PathVariable Long fileId) {
 
-        policyService.assignPolicyToFile(id, fileId);
+       policyService.assignPolicyToFile(id, fileId);
+
+       return ResponseEntity.ok("Polis aan dossier " + fileId + " gekoppeld");
     }
 
     @PutMapping("/{id}/company/{companyId}")
-    public void assignCompanyToPolicy(@PathVariable Long id, @PathVariable Long companyId) {
+    public ResponseEntity<Object> assignCompanyToPolicy(@PathVariable Long id, @PathVariable Long companyId) {
 
         policyService.assignCompanyToPolicy(id, companyId);
+
+        return ResponseEntity.ok("Polis aan maatschappij " + companyId + " gekoppeld");
     }
 }

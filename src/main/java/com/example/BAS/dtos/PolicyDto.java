@@ -13,6 +13,23 @@ public class PolicyDto {
     private FileDto fileDto;
     private CompanyDto companyDto;
 
+    public PolicyDto() {
+    }
+
+    public PolicyDto(Long id, String policyNumber) {
+        this.id = id;
+        this.policyNumber = policyNumber;
+    }
+
+    public PolicyDto(Long id, String policyNumber, Integer amount, LocalDate receiveDateAmount, LocalDate receiveDatePsk, LocalDate reminderDatePsk) {
+        this.id = id;
+        this.policyNumber = policyNumber;
+        this.amount = amount;
+        this.receiveDateAmount = receiveDateAmount;
+        this.receiveDatePsk = receiveDatePsk;
+        this.reminderDatePsk = reminderDatePsk;
+    }
+
     public CompanyDto getCompanyDto() {
         return companyDto;
     }

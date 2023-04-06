@@ -154,7 +154,7 @@ class CustomerControllerTest {
     @WithMockUser(username = "testuser", roles = "ADMIN")
     void assignAdvisorToCustomerByOfficeNumber() throws Exception{
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/customers/" +customer1.getId().toString() + "/advisors?officeNumber=710"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/customers/" + customer1.getId().toString() + "/advisors?officeNumber=710"))
                 .andExpect(status().isOk());
     }
 
