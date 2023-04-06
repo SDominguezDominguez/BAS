@@ -13,7 +13,7 @@ VALUES ('admin', 'ROLE_ADMIN'),
 INSERT INTO company(id, name, contact_person, email)
 VALUES (1, 'BLG Wonen', 'Dennis Schuurman', 'blg.psk@test.nl'),
        (2, 'SNS Bank', 'Dennis Schuurman', 'sns.psk@test.nl'),
-       (4, 'RegioBank', 'Dennis Schuurman', 'rb.psk@test.nl');
+       (3, 'RegioBank', 'Dennis Schuurman', 'rb.psk@test.nl');
 
 INSERT INTO customer(id, name, customer_number, label, email, office_number, advisor_number)
 VALUES (1, 'Samantha', '12345', 'SNS_BANK', 'samantha@test.com', 103, 123456),
