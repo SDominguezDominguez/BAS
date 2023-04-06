@@ -15,6 +15,17 @@ public class CustomerDto {
     private Long officeNumber;
     private List<FileDto> fileDto;
 
+    public CustomerDto() {
+    }
+
+    public CustomerDto(Long id, String name, String customerNumber, Label label, String email) {
+        this.id = id;
+        this.name = name;
+        this.customerNumber = customerNumber;
+        this.label = label;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
