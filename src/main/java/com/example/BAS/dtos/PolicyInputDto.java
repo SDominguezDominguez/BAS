@@ -16,6 +16,19 @@ public class PolicyInputDto {
     @Future
     private LocalDate reminderDatePsk;
 
+    public PolicyInputDto() {
+    }
+
+    public PolicyInputDto(String policyNumber) {
+        this.policyNumber = policyNumber;
+    }
+
+    public PolicyInputDto(String policyNumber, Integer amount, LocalDate receiveDateAmount) {
+        this.policyNumber = policyNumber;
+        this.amount = amount;
+        this.receiveDateAmount = receiveDateAmount;
+    }
+
     public String getPolicyNumber() {
         return policyNumber;
     }

@@ -49,10 +49,9 @@ public class Policy {
         this.company = company;
     }
 
-    public Policy(Long id, String policyNumber, Company company) {
+    public Policy(Long id, String policyNumber) {
         this.id = id;
         this.policyNumber = policyNumber;
-        this.company = company;
     }
 
     public Company getCompany() {
