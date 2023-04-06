@@ -19,6 +19,22 @@ public class CustomerInputDto {
     @Email
     private String email;
 
+    public CustomerInputDto() {
+    }
+
+    public CustomerInputDto(String name, String customerNumber, Label label) {
+        this.name = name;
+        this.customerNumber = customerNumber;
+        this.label = label;
+    }
+
+    public CustomerInputDto(String name, String customerNumber, Label label, String email) {
+        this.name = name;
+        this.customerNumber = customerNumber;
+        this.label = label;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }

@@ -26,6 +26,13 @@ public class CustomerDto {
         this.email = email;
     }
 
+    public CustomerDto(Long id, String name, String customerNumber, Label label) {
+        this.id = id;
+        this.name = name;
+        this.customerNumber = customerNumber;
+        this.label = label;
+    }
+
     public Long getId() {
         return id;
     }

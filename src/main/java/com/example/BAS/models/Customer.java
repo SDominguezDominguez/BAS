@@ -50,6 +50,13 @@ public class Customer {
         this.email = email;
     }
 
+    public Customer(Long id, String name, String customerNumber, Label label) {
+        this.id = id;
+        this.name = name;
+        this.customerNumber = customerNumber;
+        this.label = label;
+    }
+
     public Long getId() {
         return id;
     }
