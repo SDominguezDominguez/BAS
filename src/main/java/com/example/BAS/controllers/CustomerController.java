@@ -81,7 +81,7 @@ public class CustomerController {
     }
 
     @PostMapping("/{id}/advisors")
-    public ResponseEntity<Object> assignAdvisorToCustomer(@PathVariable Long id, @RequestParam(required = false) Long officeNumber, @RequestParam(required = false) Long advisorNumber) {
+    public ResponseEntity<Object> assignAdvisorToCustomer(@PathVariable Long id, @RequestParam Long officeNumber, @RequestParam(required = false) Long advisorNumber) {
 
         if (advisorNumber != null) {
 

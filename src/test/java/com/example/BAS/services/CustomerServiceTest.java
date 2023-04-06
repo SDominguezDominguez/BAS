@@ -75,11 +75,7 @@ class CustomerServiceTest {
 
         user2 = new User("advisor 2", "password2", "987654", "adviseur2@test.nl", 27L, 985L);
 
-        inputDto = new CustomerInputDto();
-        inputDto.setName("Test");
-        inputDto.setCustomerNumber("123");
-        inputDto.setLabel(Label.SNS_BANK);
-        inputDto.setEmail("test@test.nl");
+        inputDto = new CustomerInputDto("Test", "123", Label.SNS_BANK, "test@test.nl");
     }
 
     @Test
@@ -139,12 +135,6 @@ class CustomerServiceTest {
 
     @Test
     void changeCustomerThrowsExceptionTest() {
-
-
-        inputDto.setName("Testen");
-        inputDto.setCustomerNumber("123");
-        inputDto.setLabel(Label.SNS_BANK);
-        inputDto.setEmail("test@test.nl");
 
         assertThrows(CustomerNotFoundException.class, () -> customerService.changeCustomer(null, inputDto));
     }
